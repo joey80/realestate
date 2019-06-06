@@ -1,0 +1,104 @@
+.form {
+    padding: 1rem;
+    width: 100%;
+
+    &__button {
+        align-items: center;
+        background-color: #868e96;
+        border-radius: 5px;
+        color: #fff;
+        display: flex;
+        font-weight: 800;
+        padding: 0.5rem 1.1rem;
+        transition: all 0.3s ease-in-out;
+
+        &:hover {
+            background-color: #362469;
+            transition: all 0.3s ease-in-out;
+        }
+    }
+
+    &__container {
+        align-items: flex-end;
+        background-color: #f4f4f4;
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        margin: 2rem auto !important;
+        opacity: 0.9;
+        position: relative;
+        width: 50%;
+    }
+
+    &__error {
+        border: 1px solid #ffa8a8 !important;
+        color: #c52424;
+
+        &__message {
+            color: #c52424;
+            font-size: 0.7rem;
+            margin-left: 1rem;
+        }
+    }
+
+    &__field {
+        display: block;
+        width: 100%;
+    }
+
+    &__group {
+        
+    }
+
+    & h1 {
+        color: #444;
+        font-family: 'Montserrat', Helvetica, Arial, sans-serif;
+        font-size: 1.25rem;
+        font-weight: 400;
+        letter-spacing: -0.05rem;
+        line-height: 1.7;
+    }
+
+    & input {
+        background-color: #f7f7f7 !important;
+        border: 1px solid rgba(172, 170, 170, 0.4);
+        filter: none !important;
+        margin-top: 1.5rem;
+        padding: 1rem;
+
+        &:focus {
+            border: 1px solid #3624696e;
+        }
+    }
+
+    & label {
+        background-color: #f4f4f4;
+        color:rgb(68, 68, 68);
+        display: inline-block;
+        font-size: 0.8rem;
+        font-weight: 800;
+        padding: 0rem 1.1rem;
+        transform: translate(20px, 33px);
+        z-index: 9;
+    }
+
+    &__section {
+        border: 1px solid rgba(172, 170, 170, 0.2);
+        border-top: 4px solid #362469;
+        border-radius: 12px;
+        box-shadow: 0 0 20px #a5a5a52f;
+        margin: 2rem auto;
+        padding: 2rem;
+        width: 90%;
+
+        &:last-of-type {
+            align-items: center;
+            border: 0;
+            box-shadow: none;
+            display: flex;
+            justify-content: space-between;
+            margin: 0 auto;
+            padding: 0 2rem 2rem 2rem;
+        }
+    }
+}

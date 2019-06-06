@@ -1,0 +1,19 @@
+// ===========================================
+// Mixins
+// ===========================================
+
+// Media Queries
+$tablet-width: 768px;
+$desktop-width: 1025px;
+
+@mixin tablet {
+    @media (min-width: $tablet-width) {
+        @content;
+    }
+  }
+  
+  @mixin desktop {
+    @media (min-width: $desktop-width) {
+        @content;
+    }
+  }
