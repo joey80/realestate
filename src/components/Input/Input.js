@@ -1,17 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
+import InputError from '../InputError/InputError';
 import './Input.scss';
 
-class Input extends Component {
-
-    render() {
-        return (
-            <div className="form__group">
-                <label htmlFor={this.props.label}>{this.props.name}</label>
-                <input type={this.props.type} onChange={this.props.onChange} onBlur={this.props.onBlur} className="form__field" name={this.props.label} />
-                <span className="form__error__message">{this.props.children}</span>
-            </div>
-        );
-    }
-}
+const Input = props => {
+    return (
+        <div className="form__group">
+            <label htmlFor={props.label}>{props.name}</label>
+            <input type={props.type} onChange={props.onChange} onBlur={props.onBlur} className="form__field" name={props.label} />
+            <InputError errors={props.errors} errorMessage={props.errorMessage}></InputError>
+        </div>
+    );
+};
 
 export default Input;

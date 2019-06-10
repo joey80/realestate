@@ -15,17 +15,3 @@ function App() {
 }
 
 export default App;
-
-/*
-style a header from easyknock
-
-front end form
-  Use the form from Immerge
-  - Street Address
-  - City
-  - State
-  - Zip
-
-CDM fetch API
-
-*/

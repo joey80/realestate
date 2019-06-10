@@ -1,24 +1,38 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import './Modal.scss';
 
-class Modal extends Component {
-
-    render() {
-        if(!this.props.show) {
-        return null;
+const mapStateToProps = state => {
+    return {
+        modal: state.Modal.modal
+    };
+};
+  
+const mapDispatchToProps = dispatch => {
+    return {
+        hideModal: () => dispatch({type: "HIDE_MODAL"})
     }
+};
 
-    return (
-        <div className="modal">
-            <div className="modal__footer">
-                <button onClick={this.props.onClose}>
-                    Close
-                </button>
+const closeModal = props => {
+    props.hideModal();
+};
+
+const Modal = props => {
+    if (props.show === false) {
+        return null;
+    } else {
+        return (
+            <div className="modal">
+                <div className="modal__footer">
+                    <button onClick={() => {closeModal(props)}}>
+                        Close
+                    </button>
+                </div>
+                {props.children}
             </div>
-            {this.props.children}
-        </div>
-    );
-  }
-}
+        );
+    }
+};
 
-export default Modal;
+export default connect(mapStateToProps, mapDispatchToProps)(Modal);

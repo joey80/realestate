@@ -1,109 +1,109 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import Input from '../Input/Input';
 import Modal from '../Modal/Modal';
+import Select from '../Select/Select';
+import { checkValidZip } from './Helper';
+import { API } from './Config';
 import './Form.scss';
 
-class Form extends Component {
+const mapStateToProps = state => {
+  return {
+      errors: state.Input.errors,
+      modal: state.Modal.modal,
+      searchLocation: state.Input.searchLocation
+  };
+};
 
-  constructor(props) {
-    super(props);
-
-    this.state = { isOpen: false };
-    this.modal = '';
+const mapDispatchToProps = dispatch => {
+  return {
+      showError: name => dispatch({type: "SHOW_INPUT_ERROR", errorName: name}),
+      hideError: name => dispatch({type: "HIDE_INPUT_ERROR", errorName: name}),
+      showModal: () => dispatch({type: "SHOW_MODAL"}),
+      saveValue: (name, value) => dispatch({type: "SAVE_VALUE", stateName: name, stateValue: value}),
+      saveResults: value => dispatch({type: "SAVE_RESULTS", value})
   }
+};
 
-  handleClick = event => {
-    event.preventDefault();
-    const inputs = Array.from(document.querySelectorAll('.form__field'));
-    if (this.allFilledOut(inputs) ? this.callAPI() : null);
-  };
+const checkValue = (props, event, name) => {
+  const target = event.target;
 
-  checkValue = event => {
-    const target = event.target;
-    const message = target.nextElementSibling;
-    if (target.value === '' ? message.innerHTML = 'Please fill out this field' : message.innerHTML = '');
-  };
+  // Check for blank values
+  if (target.value === '' ? props.showError(name) : props.hideError(name));
 
-  allFilledOut = (array) => {
-    let errors = 0;
-    array.forEach(elm => {
-      if (elm.value === '' ? errors++ : null);
-    });
-
-    if (errors > 0) {
-      return false;
-    } else {
-      return true;
-    }
-  };
-
-  setTheState = (event) => {
-    this.setState({ [event.target.name]: event.target.value });
-  };
-
-  toggleModal = () => {
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
-  };
-
-  callAPI = () => {
-    const token = 'TOP_SECRET';
-    this.setState({isOpen: true});
-
-    fetch(`https://api.estated.com/property/v3?token=${token}&address=${this.state.streetAddress}&city=${this.state.city}&state=${this.state.state}&zipcode=${this.state.zipCode}`)
-    .then(response => response.json())
-    .then(results => this.setState({results}));
-  };
-
-  render() {
-    return (
-      <div className="form" onSubmit={this.handleClick}>
-        <Modal show={this.state.isOpen}
-          onClose={this.toggleModal}>
-          <pre>${JSON.stringify(this.state.results, null, '  ')}</pre>
-        </Modal>
-        <form className="form__container">
-          <div className="form__section">
-            <h1><strong>Hello!</strong><br />
-            Where Would You Like To Search For A Property?</h1>
-            <Input
-              label="streetAddress"
-              name="Street Address"
-              type="text"
-              onChange={this.setTheState}
-              onBlur={this.checkValue}>
-            </Input>
-            <Input
-              label="city"
-              name="City"
-              type="text"
-              onChange={this.setTheState}
-              onBlur={this.checkValue}>
-            </Input>
-            <Input
-              label="state"
-              name="State"
-              type="text"
-              onChange={this.setTheState}
-              onBlur={this.checkValue}>
-            </Input>
-            <Input
-              label="zipCode"
-              name="Zip Code"
-              type="text"
-              onChange={this.setTheState}
-              onBlur={this.checkValue}>
-            </Input>
-          </div>
-          <div className="form__section">
-            <div>* All fields are required</div>
-            <button type="submit" onClick={this.handleClick} className="form__button">Submit</button>
-          </div>
-        </form>
-      </div>
-    );
+  // Validate zip code
+  if (name === 'zipCode' && target.value !== '') {
+    const valid = checkValidZip(target.value);
+    if (valid === false ? props.showError(name) : props.hideError(name));
   }
-}
+};
 
-export default Form;
+const handleClick = (props, event) => {
+  event.preventDefault();
+  props.showModal();
+  callAPI(props);
+};
+
+const callAPI = props => {
+  const token = API.key;
+
+  fetch(`https://api.estated.com/property/v3?token=${token}&address=${props.searchLocation.streetAddress}&city=${props.searchLocation.city}&state=${props.searchLocation.state}&zipcode=${props.searchLocation.zipCode}`)
+  .then(response => response.json())
+  .then(results => console.log(results))
+  //.then(results => this.setState({results}));
+};
+
+const Form = props => {
+  return (
+    <div className="form" onSubmit={event => {handleClick(props, event)}}>
+      <Modal
+        show={props.modal.isVisible}>
+        Hello World
+        {/* <pre>${JSON.stringify(this.state.results, null, '  ')}</pre> */}
+      </Modal>
+      <form className="form__container">
+        <div className="form__section">
+          <h1><strong>Hello!</strong><br />
+          Where Would You Like To Search For A Property?</h1>
+          <Input
+            label="streetAddress"
+            name="Street Address"
+            type="text"
+            onBlur={event => {checkValue(props, event, 'streetAddress')}}
+            onChange={event => {props.saveValue('streetAddress', event.target.value)}}
+            errors={props.errors.streetAddress}
+            errorMessage="Please enter a street address">
+          </Input>
+          <Input
+            label="city"
+            name="City"
+            type="text"
+            onBlur={event => {checkValue(props, event, 'city')}}
+            onChange={event => {props.saveValue('city', event.target.value)}}
+            errors={props.errors.city}
+            errorMessage="Please enter a city name">
+          </Input>
+          <Select
+            onBlur={event => {checkValue(props, event, 'state')}}
+            onChange={event => {props.saveValue('state', event.target.value)}}>
+          </Select>
+          <Input
+            label="zipCode"
+            name="Zip Code"
+            type="text"
+            onBlur={event => {checkValue(props, event, 'zipCode')}}
+            onChange={event => {props.saveValue('zipCode', event.target.value)}}
+            errors={props.errors.zipCode}
+            errorMessage="Please enter a valid 5 digit zip code">
+          </Input>
+        </div>
+        <div className="form__section">
+          <div>* All fields are required</div>
+          <button type="submit" onClick={event => {handleClick(props, event)}} className="form__button">Submit</button>
+        </div>
+      </form>
+    </div>
+  );
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
