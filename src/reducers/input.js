@@ -44,6 +44,19 @@ const Input = (state = initialState, action) => {
         }
     }
 
+    if (action.type === 'CLEAR_SEARCH_VALUES') {
+        return {
+            ...state,
+            searchLocation: {
+                ...state.searchLocation,
+                streetAddress: null,
+                city: null,
+                state: null,
+                zipCode: null
+            }
+        }
+    }
+
     return state;
 }
   

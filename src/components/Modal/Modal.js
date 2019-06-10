@@ -4,7 +4,8 @@ import './Modal.scss';
 
 const mapStateToProps = state => {
     return {
-        modal: state.Modal.modal
+        modal: state.Modal.modal,
+        results: state.Results.searchResults
     };
 };
   
@@ -19,9 +20,18 @@ const closeModal = props => {
 };
 
 const Modal = props => {
-    if (props.show === false) {
+    let content;
+
+    if (props.modal.isVisible === false) {
         return null;
     } else {
+
+        if (props.modal.isLoading === true) {
+            content = 'Loading';
+        } else {
+            content = <pre>${JSON.stringify(props.results, null, '  ')}</pre>;
+        }
+        
         return (
             <div className="modal">
                 <div className="modal__footer">
@@ -29,7 +39,7 @@ const Modal = props => {
                         Close
                     </button>
                 </div>
-                {props.children}
+                {content}
             </div>
         );
     }

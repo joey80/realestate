@@ -1,6 +1,7 @@
 const initialState = {
     modal: {
-        isVisible: false
+        isVisible: false,
+        isLoading: true
     }
 };
 
@@ -11,7 +12,8 @@ const Modal = (state = initialState, action) => {
             ...state,
             modal: {
                 ...state.modal,
-                isVisible: true
+                isVisible: true,
+                isLoading: true
             }
         }
     }
@@ -21,7 +23,30 @@ const Modal = (state = initialState, action) => {
             ...state,
             modal: {
                 ...state.modal,
-                isVisible: false
+                isVisible: false,
+                isLoading: false
+            }
+        }
+    }
+
+    if (action.type === 'START_LOADING') {
+        return {
+            ...state,
+            modal: {
+                ...state.modal,
+                isVisible: true,
+                isLoading: true
+            }
+        }
+    }
+
+    if (action.type === 'STOP_LOADING') {
+        return {
+            ...state,
+            modal: {
+                ...state.modal,
+                isVisible: true,
+                isLoading: false
             }
         }
     }

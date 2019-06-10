@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Input from '../Input/Input';
 import Modal from '../Modal/Modal';
 import Select from '../Select/Select';
-import { checkValidZip } from './Helper';
+import { checkValidZip, checkIfNull } from './Helper';
 import { API } from './Config';
 import './Form.scss';
 
@@ -11,17 +11,21 @@ const mapStateToProps = state => {
   return {
       errors: state.Input.errors,
       modal: state.Modal.modal,
-      searchLocation: state.Input.searchLocation
+      searchLocation: state.Input.searchLocation,
+      results: state.Results.searchResults
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-      showError: name => dispatch({type: "SHOW_INPUT_ERROR", errorName: name}),
-      hideError: name => dispatch({type: "HIDE_INPUT_ERROR", errorName: name}),
-      showModal: () => dispatch({type: "SHOW_MODAL"}),
-      saveValue: (name, value) => dispatch({type: "SAVE_VALUE", stateName: name, stateValue: value}),
-      saveResults: value => dispatch({type: "SAVE_RESULTS", value})
+      showError: name => dispatch({type: 'SHOW_INPUT_ERROR', errorName: name}),
+      hideError: name => dispatch({type: 'HIDE_INPUT_ERROR', errorName: name}),
+      showModal: () => dispatch({type: 'SHOW_MODAL'}),
+      startLoading: () => dispatch({type: 'START_LOADING'}),
+      stopLoading: () => dispatch({type: 'STOP_LOADING'}),
+      saveValue: (name, value) => dispatch({type: 'SAVE_VALUE', stateName: name, stateValue: value}),
+      saveResults: value => dispatch({type: 'SAVE_RESULTS', newResults: value}),
+      clearSearchValues: () => dispatch({type: 'CLEAR_SEARCH_VALUES'})
   }
 };
 
@@ -40,8 +44,12 @@ const checkValue = (props, event, name) => {
 
 const handleClick = (props, event) => {
   event.preventDefault();
-  props.showModal();
-  callAPI(props);
+  if (checkIfNull(props.searchLocation) === true) {
+    alert('All Fields Are Required');
+  } else {
+    props.startLoading();
+    callAPI(props);
+  }
 };
 
 const callAPI = props => {
@@ -49,18 +57,17 @@ const callAPI = props => {
 
   fetch(`https://api.estated.com/property/v3?token=${token}&address=${props.searchLocation.streetAddress}&city=${props.searchLocation.city}&state=${props.searchLocation.state}&zipcode=${props.searchLocation.zipCode}`)
   .then(response => response.json())
-  .then(results => console.log(results))
-  //.then(results => this.setState({results}));
+  .then(results => props.saveResults(results.properties))
+  .then(results => {
+    props.stopLoading();
+    props.clearSearchValues();
+  });
 };
 
 const Form = props => {
   return (
     <div className="form" onSubmit={event => {handleClick(props, event)}}>
-      <Modal
-        show={props.modal.isVisible}>
-        Hello World
-        {/* <pre>${JSON.stringify(this.state.results, null, '  ')}</pre> */}
-      </Modal>
+      <Modal />
       <form className="form__container">
         <div className="form__section">
           <h1><strong>Hello!</strong><br />
