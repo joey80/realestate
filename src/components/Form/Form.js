@@ -29,29 +29,6 @@ const mapDispatchToProps = dispatch => {
   }
 };
 
-const checkValue = (props, event, name) => {
-  const target = event.target;
-
-  // Check for blank values
-  if (target.value === '' ? props.showError(name) : props.hideError(name));
-
-  // Validate zip code
-  if (name === 'zipCode' && target.value !== '') {
-    const valid = checkValidZip(target.value);
-    if (valid === false ? props.showError(name) : props.hideError(name));
-  }
-};
-
-const handleClick = (props, event) => {
-  event.preventDefault();
-  if (checkIfNull(props.searchLocation) === true) {
-    alert('All Fields Are Required');
-  } else {
-    props.startLoading();
-    callAPI(props);
-  }
-};
-
 const callAPI = props => {
   const token = API.key;
 
@@ -66,12 +43,32 @@ const callAPI = props => {
 
 const Form = props => {
 
-  const handleIt = () => {
-    console.log(props);
+  const checkValue = (event, name) => {
+    const target = event.target;
+  
+    // Check for blank values
+    if (target.value === '' ? props.showError(name) : props.hideError(name));
+  
+    // Validate zip code
+    if (name === 'zipCode' && target.value !== '') {
+      const valid = checkValidZip(target.value);
+      if (valid === false ? props.showError(name) : props.hideError(name));
+    }
+  };
+
+  const handleClick = event => {
+    event.preventDefault();
+
+    if (checkIfNull(props.searchLocation) === true) {
+      alert('All Fields Are Required');
+    } else {
+      props.startLoading();
+      callAPI(props);
+    }
   };
 
   return (
-    <div className="form" onSubmit={event => {handleClick(props, event)}}>
+    <div className="form" onSubmit={event => {handleClick(event)}}>
       <Modal />
       <form className="form__container">
         <div className="form__section">
@@ -81,7 +78,7 @@ const Form = props => {
             label="streetAddress"
             name="Street Address"
             type="text"
-            onBlur={handleIt}
+            onBlur={event => {checkValue(event, 'streetAddress')}}
             onChange={event => {props.saveValue('streetAddress', event.target.value)}}
             errors={props.errors.streetAddress}
             errorMessage="Please enter a street address">
@@ -90,20 +87,20 @@ const Form = props => {
             label="city"
             name="City"
             type="text"
-            onBlur={event => {checkValue(props, event, 'city')}}
+            onBlur={event => {checkValue(event, 'city')}}
             onChange={event => {props.saveValue('city', event.target.value)}}
             errors={props.errors.city}
             errorMessage="Please enter a city name">
           </Input>
           <Select
-            onBlur={event => {checkValue(props, event, 'state')}}
+            onBlur={event => {checkValue(event, 'state')}}
             onChange={event => {props.saveValue('state', event.target.value)}}>
           </Select>
           <Input
             label="zipCode"
             name="Zip Code"
             type="text"
-            onBlur={event => {checkValue(props, event, 'zipCode')}}
+            onBlur={event => {checkValue(event, 'zipCode')}}
             onChange={event => {props.saveValue('zipCode', event.target.value)}}
             errors={props.errors.zipCode}
             errorMessage="Please enter a valid 5 digit zip code">
@@ -111,11 +108,11 @@ const Form = props => {
         </div>
         <div className="form__section">
           <div>* All fields are required</div>
-          <button type="submit" onClick={event => {handleClick(props, event)}} className="form__button">Submit</button>
+          <button type="submit" onClick={event => {handleClick(event)}} className="form__button">Submit</button>
         </div>
       </form>
     </div>
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Form);//event => {checkValue(props, event, 'streetAddress')}
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
