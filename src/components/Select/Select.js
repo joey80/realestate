@@ -4,8 +4,8 @@ import './Select.scss';
 
 const Select = props => {
     return (
-        <select onChange={props.onChange}>
-            <option selected="true" value="" disabled="disabled">Select A State</option>
+        <select defaultValue={"Select A State"} onChange={props.onChange}>
+            <option value="Select A State" disabled="disabled">Select A State</option>
             {states.names.map(name => {
                 return (
                     <option key={name} value={name}>{name}</option>

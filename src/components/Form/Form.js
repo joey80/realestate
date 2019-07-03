@@ -65,6 +65,11 @@ const callAPI = props => {
 };
 
 const Form = props => {
+
+  const handleIt = () => {
+    console.log(props);
+  };
+
   return (
     <div className="form" onSubmit={event => {handleClick(props, event)}}>
       <Modal />
@@ -76,7 +81,7 @@ const Form = props => {
             label="streetAddress"
             name="Street Address"
             type="text"
-            onBlur={event => {checkValue(props, event, 'streetAddress')}}
+            onBlur={handleIt}
             onChange={event => {props.saveValue('streetAddress', event.target.value)}}
             errors={props.errors.streetAddress}
             errorMessage="Please enter a street address">
@@ -113,4 +118,4 @@ const Form = props => {
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Form);
+export default connect(mapStateToProps, mapDispatchToProps)(Form);//event => {checkValue(props, event, 'streetAddress')}
