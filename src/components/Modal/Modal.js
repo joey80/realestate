@@ -15,12 +15,12 @@ const mapDispatchToProps = dispatch => {
     }
 };
 
-const closeModal = props => {
-    props.hideModal();
-};
-
 const Modal = props => {
     let content;
+
+    const closeModal = () => {
+        props.hideModal();
+    };
 
     if (props.modal.isVisible === false) {
         return null;
