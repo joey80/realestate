@@ -19,7 +19,7 @@
 .env.production.local
 
 # API keys
-/src/components/Form/Config.js
+/src/env/API.js
 
 npm-debug.log*
 yarn-debug.log*
