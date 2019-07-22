@@ -30,7 +30,7 @@ const Input = props => {
         if (props.label === 'zipCode' && target.value !== '') {
           const valid = checkValidZip(target.value);
           if (valid === false ? props.showError(props.label) : props.hideError(props.label));
-        }
+        } 
     };
     
     return (
