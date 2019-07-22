@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Loader from '../Loader/Loader';
 import './Modal.scss';
 
 const mapStateToProps = state => {
@@ -27,7 +28,7 @@ const Modal = props => {
     } else {
 
         if (props.modal.isLoading === true) {
-            content = 'Loading';
+            content = <Loader />;
         } else {
             content = <pre>${JSON.stringify(props.results, null, '  ')}</pre>;
         }
