@@ -4,8 +4,9 @@ import Input from '../Input/Input';
 import Modal from '../Modal/Modal';
 import Select from '../Select/Select';
 import { checkIfNull } from './Helper';
-import { API } from './Config';
+import { API } from '../../env/API';
 import './Form.scss';
+const convert = require('xml-js');
 
 const mapStateToProps = state => {
   return {
@@ -25,8 +26,8 @@ const mapDispatchToProps = dispatch => {
 
 const Form = props => {
 
-  const handleClick = event => {
-    event.preventDefault();
+  const handleClick = (e) => {
+    e.preventDefault();
 
     if (checkIfNull(props.searchLocation) === true) {
       alert('All Fields Are Required');
@@ -37,19 +38,24 @@ const Form = props => {
   };
 
   const callAPI = () => {
-    const token = API.key;
+    const zswid = API.zillow.zwsid;
+    const proxy = 'https://cors-anywhere.herokuapp.com/';
   
-    fetch(`https://api.estated.com/property/v3?token=${token}&address=${props.searchLocation.streetAddress}&city=${props.searchLocation.city}&state=${props.searchLocation.state}&zipcode=${props.searchLocation.zipCode}`)
-    .then(response => response.json())
-    .then(results => props.saveResults(results.properties))
-    .then(results => {
+    fetch(`${proxy}http://www.zillow.com/webservice/GetDeepSearchResults.htm?zws-id=${zswid}&address=${props.searchLocation.streetAddress}&citystatezip=${props.searchLocation.city}+${props.searchLocation.state}+${props.searchLocation.zipCode}`)
+    .then(res => res.text())
+    .then(res => {
+      const rawXML = convert.xml2json(res, {compact: true, spaces: 2});
+      return JSON.parse(rawXML);
+    })
+    .then(res => props.saveResults(res['SearchResults:searchresults']['response']['results']['result']))
+    .then(() => {
       props.stopLoading();
       props.clearSearchValues();
     });
   };
 
   return (
-    <div className="form" onSubmit={event => {handleClick(event)}}>
+    <div className="form">
       <Modal />
       <form className="form__container">
         <div className="form__section">
@@ -82,7 +88,7 @@ const Form = props => {
         </div>
         <div className="form__section">
           <div>* All fields are required</div>
-          <button type="submit" onClick={event => {handleClick(event)}} className="form__button">Submit</button>
+          <button type="submit" onClick={(e) => { handleClick(e) }} className="form__button">Submit</button>
         </div>
       </form>
     </div>
