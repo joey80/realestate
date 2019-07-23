@@ -31,7 +31,9 @@ const Form = props => {
 
     if (checkIfNull(props.searchLocation) === true) {
       alert('All Fields Are Required');
+      console.log(props);
     } else {
+      console.log(props);
       props.startLoading();
       callAPI();
     }
