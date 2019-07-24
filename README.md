@@ -1,6 +1,9 @@
-# Easyknock Code Test - Joey Leger
-
+# Real Estate React App
 - built with create react app
-- use npm start to start server
+- Uses Zillow API for home data
 
-Note - API token was not included
+# To Run:
+- npm install
+- npm start
+
+Note - API token is not included
