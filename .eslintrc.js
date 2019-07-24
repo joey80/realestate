@@ -1,6 +1,16 @@
 module.exports = {
     parser: 'babel-eslint',
     extends: ['airbnb', 'prettier', 'prettier/react'],
+    overrides: [
+      Object.assign(
+        {
+          files: [ '**/*.test.js' ],
+          env: { jest: true },
+          plugins: [ 'jest' ],
+        },
+        require('eslint-plugin-jest').configs.recommended
+      )
+    ],
     rules: {
       semi: 0,
       'import/prefer-default-export': 0,
