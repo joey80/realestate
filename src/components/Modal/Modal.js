@@ -1,19 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import './Modal.scss';
 
-const mapStateToProps = state => {
-    return {
-        modal: state.Modal.modal,
-        results: state.Results.searchResults
-    };
-};
+const mapStateToProps = state => ({
+    modal: state.Modal.modal,
+    results: state.Results.searchResults
+});
   
-const mapDispatchToProps = dispatch => {
-    return {
-        hideModal: () => dispatch({type: "HIDE_MODAL"})
-    }
-};
+const mapDispatchToProps = dispatch => ({
+    hideModal: () => dispatch({type: "HIDE_MODAL"})
+});
 
 const Modal = props => {
     let content;
@@ -24,25 +21,32 @@ const Modal = props => {
 
     if (props.modal.isVisible === false) {
         return null;
-    } else {
-
-        if (props.modal.isLoading === true) {
-            content = 'Loading';
-        } else {
-            content = <pre>${JSON.stringify(props.results, null, '  ')}</pre>;
-        }
-        
-        return (
-            <div className="modal">
-                <div className="modal__footer">
-                    <button onClick={() => {closeModal(props)}}>
-                        Close
-                    </button>
-                </div>
-                {content}
-            </div>
-        );
     }
+
+    if (props.modal.isLoading === true) {
+        content = 'Loading';
+    } else {
+        content = <pre>${JSON.stringify(props.results, null, '  ')}</pre>;
+    }
+        
+    return (
+        <div className="modal">
+            <div className="modal__footer">
+                <button
+                    onClick={ closeModal }
+                    type="button">
+                    Close
+                </button>
+            </div>
+            {content}
+        </div>
+    );
+};
+
+Modal.propTypes = {
+    hideModal: PropTypes.func,
+    modal: PropTypes.object,
+    results: PropTypes.object
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Modal);
