@@ -2,6 +2,10 @@ import { Input } from './Input';
 
 describe('Input Fields', () => {
 
+    it('Should render correctly', () => {
+        
+    });
+
     it('Should show error message if field is empty', () => {
         
     });
