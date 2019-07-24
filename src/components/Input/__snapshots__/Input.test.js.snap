@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Input should render correctly 1`] = `
+<div
+  className="form__group"
+>
+  <label
+    htmlFor="streetAddress"
+  />
+  <input
+    className="form__field"
+    name="streetAddress"
+    onBlur={[Function]}
+    onChange={[Function]}
+  />
+  <InputError
+    error={false}
+  />
+</div>
+`;

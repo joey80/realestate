@@ -33,14 +33,20 @@
       "last 1 safari version"
     ]
   },
+  "jest": {
+    "snapshotSerializers": ["enzyme-to-json/serializer"]
+  },
   "devDependencies": {
-    "react-redux": "^7.0.3",
     "env-cmd": "^8.0.2",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "enzyme-to-json": "^3.3.5",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^3.6.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.11.1",
-    "prettier": "1.14.2"
+    "prettier": "1.14.2",
+    "react-redux": "^7.0.3"
   }
 }
