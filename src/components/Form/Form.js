@@ -23,7 +23,7 @@ const mapDispatchToProps = dispatch => ({
   clearSearchValues: () => dispatch({ type: 'CLEAR_SEARCH_VALUES' })
 });
 
-const Form = props => {
+export const Form = props => {
 
   const handleClick = e => {
     e.preventDefault();

@@ -16,7 +16,7 @@ const mapDispatchToProps = dispatch => ({
     saveValue: (name, value) => dispatch({ type: 'SAVE_VALUE', stateName: name, stateValue: value })
 });
 
-const Input = props => {
+export const Input = props => {
 
     const checkValue = target => {
       
@@ -32,7 +32,7 @@ const Input = props => {
     
     return (
         <div className="form__group">
-            <label htmlFor={props.label}>{props.name}</label>
+            <label htmlFor={ props.label }>{ props.name }</label>
             <input
                 type={ props.type }
                 onChange={ e => { props.saveValue(props.label, e.target.value) }}
