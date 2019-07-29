@@ -5,7 +5,7 @@ import InputError from '../InputError/InputError';
 import { checkValidZip } from '../Form/Helper';
 import './Input.scss';
 
-export const Input = props => {
+const Input = props => {
 
     const dispatch = useDispatch();
     const errors = useSelector(state => state.Input.errors);

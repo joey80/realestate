@@ -9,7 +9,7 @@ import { checkIfNull } from './Helper';
 import { API } from '../../env/API';
 import './Form.scss';
 
-export const Form = () => {
+const Form = () => {
 
   const dispatch = useDispatch();
   const searchLocation = useSelector(state => state.Input.searchLocation);
