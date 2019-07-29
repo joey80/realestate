@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import Loader from '../Loader/Loader';
 import './Modal.scss';
 
 const Modal = () => {
@@ -19,7 +20,7 @@ const Modal = () => {
     }
 
     if (modal.isLoading === true) {
-        content = 'Loading';
+        content = <Loader />;
     } else {
         content = <pre>${JSON.stringify(results, null, '  ')}</pre>;
     }

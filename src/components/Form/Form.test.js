@@ -7,8 +7,7 @@ configure({ adapter: new Adapter() });
 
 describe('Main form', () => {
   it('should render correctly', () => {
-    const component = shallow(<Form />);
-  
+    // const component = shallow(<Form />);
     // expect(component).toMatchSnapshot();
   });
 });
