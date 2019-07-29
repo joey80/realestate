@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './Modal.scss';
 
 const mapStateToProps = state => ({
-    modal: state.Modal.modal,
+    modal: state.modalReducer.modal,
     results: state.Results.searchResults
 });
   
