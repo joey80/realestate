@@ -1,32 +1,27 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import './Modal.scss';
 
-const mapStateToProps = state => ({
-    modal: state.modalReducer.modal,
-    results: state.Results.searchResults
-});
-  
-const mapDispatchToProps = dispatch => ({
-    hideModal: () => dispatch({type: "HIDE_MODAL"})
-});
+const Modal = () => {
 
-const Modal = props => {
+    const dispatch = useDispatch();
+    const modal = useSelector(state => state.modalReducer.modal);
+    const results = useSelector(state => state.Results.searchResults);
     let content;
 
     const closeModal = () => {
-        props.hideModal();
+        dispatch({ type: 'HIDE_MODAL' });
     };
 
-    if (props.modal.isVisible === false) {
+    if (modal.isVisible === false) {
         return null;
     }
 
-    if (props.modal.isLoading === true) {
+    if (modal.isLoading === true) {
         content = 'Loading';
     } else {
-        content = <pre>${JSON.stringify(props.results, null, '  ')}</pre>;
+        content = <pre>${JSON.stringify(results, null, '  ')}</pre>;
     }
         
     return (
@@ -44,9 +39,8 @@ const Modal = props => {
 };
 
 Modal.propTypes = {
-    hideModal: PropTypes.func,
     modal: PropTypes.object,
     results: PropTypes.object
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Modal);
+export default Modal;

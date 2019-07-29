@@ -1,7 +1,7 @@
 const initialState = {
     modal: {
         isVisible: false,
-        isLoading: true
+        isLoading: false
     }
 };
 
