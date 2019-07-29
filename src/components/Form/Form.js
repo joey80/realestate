@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import fetch from 'isomorphic-fetch'
 import Input from '../Input/Input';
@@ -9,46 +9,36 @@ import { checkIfNull } from './Helper';
 import { API } from '../../env/API';
 import './Form.scss';
 
-const convert = require('xml-js');
+const Form = () => {
 
-const mapStateToProps = state => ({
-  searchLocation: state.Input.searchLocation,
-  results: state.Results.searchResults
-});
+  const dispatch = useDispatch();
+  const searchLocation = useSelector(state => state.Input.searchLocation);
+  const convert = require('xml-js');
 
-const mapDispatchToProps = dispatch => ({
-  startLoading: () => dispatch({ type: 'START_LOADING' }),
-  stopLoading: () => dispatch({ type: 'STOP_LOADING' }),
-  saveResults: value => dispatch({ type: 'SAVE_RESULTS', newResults: value }),
-  clearSearchValues: () => dispatch({ type: 'CLEAR_SEARCH_VALUES' })
-});
-
-export const Form = props => {
+  const callAPI = () => {
+    const zswid = API.zillow.zwsid;
+    const proxy = 'https://cors-anywhere.herokuapp.com/';
+  
+    fetch(`${proxy}http://www.zillow.com/webservice/GetDeepSearchResults.htm?zws-id=${zswid}&address=${searchLocation.streetAddress}&citystatezip=${searchLocation.city}+${searchLocation.state}+${searchLocation.zipCode}`)
+    .then(res => res.text())
+    .then(res => {
+      const rawXML = convert.xml2json(res, { compact: true, spaces: 2 });
+      return JSON.parse(rawXML);
+    })
+    .then(res => dispatch({ type: 'SAVE_RESULTS', newResults: res['SearchResults:searchresults'].response.results.result }))
+    .then(() => {
+      dispatch({ type: 'STOP_LOADING' });
+      dispatch({ type: 'CLEAR_SEARCH_VALUES' });
+    });
+  };
 
   const handleClick = e => {
     e.preventDefault();
 
-    const callAPI = () => {
-      const zswid = API.zillow.zwsid;
-      const proxy = 'https://cors-anywhere.herokuapp.com/';
-    
-      fetch(`${proxy}http://www.zillow.com/webservice/GetDeepSearchResults.htm?zws-id=${zswid}&address=${props.searchLocation.streetAddress}&citystatezip=${props.searchLocation.city}+${props.searchLocation.state}+${props.searchLocation.zipCode}`)
-      .then(res => res.text())
-      .then(res => {
-        const rawXML = convert.xml2json(res, { compact: true, spaces: 2 });
-        return JSON.parse(rawXML);
-      })
-      .then(res => props.saveResults(res['SearchResults:searchresults'].response.results.result))
-      .then(() => {
-        props.stopLoading();
-        props.clearSearchValues();
-      });
-    };
-
-    if (checkIfNull(props.searchLocation) === true) {
+    if (checkIfNull(searchLocation) === true) {
       window.alert('All Fields Are Required');
     } else {
-      props.startLoading();
+      dispatch({ type: 'START_LOADING' });
       callAPI();
     }
   };
@@ -95,11 +85,7 @@ export const Form = props => {
 };
 
 Form.propTypes = {
-  searchLocation: PropTypes.object,
-  startLoading: PropTypes.func,
-  saveResults: PropTypes.func,
-  stopLoading: PropTypes.func,
-  clearSearchValues: PropTypes.func
+  searchLocation: PropTypes.object
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Form);
+export default Form;

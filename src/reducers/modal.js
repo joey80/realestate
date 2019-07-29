@@ -1,11 +1,11 @@
 const initialState = {
     modal: {
         isVisible: false,
-        isLoading: true
+        isLoading: false
     }
 };
 
-const Modal = (state = initialState, action) => {
+const modalReducer = (state = initialState, action) => {
     
     if (action.type === 'SHOW_MODAL') {
         return {
@@ -54,4 +54,4 @@ const Modal = (state = initialState, action) => {
     return state;
 }
   
-  export default Modal;
+  export default modalReducer;
