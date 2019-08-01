@@ -25,7 +25,34 @@ const Form = () => {
       const rawXML = convert.xml2json(res, { compact: true, spaces: 2 });
       return JSON.parse(rawXML);
     })
-    .then(res => dispatch({ type: 'SAVE_RESULTS', newResults: res['SearchResults:searchresults'].response.results.result }))
+    .then(res => {
+      const returned = res['SearchResults:searchresults'].response.results.result;
+      
+      const cleanData = {
+        zpid: returned.zpid,
+        homeDetailsLink: returned.links.homedetails._text,
+        mapThisHomeLink: returned.links.mapthishome._text,
+        comparablesLink: returned.links.comparables._text,
+        address: {
+          street: returned.address.street._text,
+          zip: returned.address.zipcode._text,
+          city: returned.address.city._text,
+          state: returned.address.state._text,
+          lat: returned.address.latitude._text,
+          long: returned.address.longitude._text
+        },
+        property: {
+          type: returned.useCode._text,
+          sqft: returned.finishedSqFt._text,
+          bathrooms: returned.bathrooms._text,
+          bedrooms: returned.bedrooms._text,
+          value: returned.zestimate._text
+        }
+      }
+      console.log(cleanData);
+      console.log(res);
+      dispatch({ type: 'SAVE_RESULTS', newResults: returned })
+    })
     .then(() => {
       dispatch({ type: 'STOP_LOADING' });
       dispatch({ type: 'CLEAR_SEARCH_VALUES' });
@@ -37,6 +64,7 @@ const Form = () => {
 
     if (checkIfNull(searchLocation) === true) {
       window.alert('All Fields Are Required');
+
     } else {
       dispatch({ type: 'START_LOADING' });
       callAPI();
@@ -76,7 +104,7 @@ const Form = () => {
             type="submit"
             onClick={ e => { handleClick(e) }}
             className="form__button">
-            Submit
+            Submit Test
           </button>
         </div>
       </form>
