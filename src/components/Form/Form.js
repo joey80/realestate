@@ -1,45 +1,33 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import fetch from 'isomorphic-fetch'
+import { zillowAPI } from '../../utils/zillowAPI';
 import Input from '../Input/Input';
 import Modal from '../Modal/Modal';
 import Select from '../Select/Select';
 import { checkIfNull } from './Helper';
-import { API } from '../../env/API';
 import './Form.scss';
 
 const Form = () => {
 
   const dispatch = useDispatch();
   const searchLocation = useSelector(state => state.Input.searchLocation);
-  const convert = require('xml-js');
 
-  const callAPI = () => {
-    const zswid = API.zillow.zwsid;
-    const proxy = 'https://cors-anywhere.herokuapp.com/';
-  
-    fetch(`${proxy}http://www.zillow.com/webservice/GetDeepSearchResults.htm?zws-id=${zswid}&address=${searchLocation.streetAddress}&citystatezip=${searchLocation.city}+${searchLocation.state}+${searchLocation.zipCode}`)
-    .then(res => res.text())
-    .then(res => {
-      const rawXML = convert.xml2json(res, { compact: true, spaces: 2 });
-      return JSON.parse(rawXML);
-    })
-    .then(res => dispatch({ type: 'SAVE_RESULTS', newResults: res['SearchResults:searchresults'].response.results.result }))
-    .then(() => {
-      dispatch({ type: 'STOP_LOADING' });
-      dispatch({ type: 'CLEAR_SEARCH_VALUES' });
-    });
-  };
-
-  const handleClick = e => {
+  const handleClick = async e => {
     e.preventDefault();
 
     if (checkIfNull(searchLocation) === true) {
       window.alert('All Fields Are Required');
+
     } else {
       dispatch({ type: 'START_LOADING' });
-      callAPI();
+      const zillow = await zillowAPI(searchLocation);
+      
+      if (zillow) {
+        dispatch({ type: 'SAVE_RESULTS', newResults: zillow });
+        dispatch({ type: 'STOP_LOADING' });
+        dispatch({ type: 'CLEAR_SEARCH_VALUES' });
+      }
     }
   };
 
@@ -62,7 +50,8 @@ const Form = () => {
             type="text"
             errorMessage="Please enter a city name"
           />
-          <Select />
+          <Select 
+            value={ searchLocation.state }/>
           <Input
             label="zipCode"
             name="Zip Code"
