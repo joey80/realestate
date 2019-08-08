@@ -65,7 +65,7 @@ const Form = () => {
             type="submit"
             onClick={ e => { handleClick(e) }}
             className="form__button">
-            Submit Test
+            Submit
           </button>
         </div>
       </form>
