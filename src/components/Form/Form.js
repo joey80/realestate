@@ -1,65 +1,19 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import fetch from 'isomorphic-fetch'
+import { zillowAPI } from '../../utils/zillowAPI';
 import Input from '../Input/Input';
 import Modal from '../Modal/Modal';
 import Select from '../Select/Select';
 import { checkIfNull } from './Helper';
-import { API } from '../../env/API';
 import './Form.scss';
 
 const Form = () => {
 
   const dispatch = useDispatch();
   const searchLocation = useSelector(state => state.Input.searchLocation);
-  const convert = require('xml-js');
 
-  const callAPI = () => {
-    const zswid = API.zillow.zwsid;
-    const proxy = 'https://cors-anywhere.herokuapp.com/';
-  
-    fetch(`${proxy}http://www.zillow.com/webservice/GetDeepSearchResults.htm?zws-id=${zswid}&address=${searchLocation.streetAddress}&citystatezip=${searchLocation.city}+${searchLocation.state}+${searchLocation.zipCode}`)
-    .then(res => res.text())
-    .then(res => {
-      const rawXML = convert.xml2json(res, { compact: true, spaces: 2 });
-      return JSON.parse(rawXML);
-    })
-    .then(res => {
-      const returned = res['SearchResults:searchresults'].response.results.result;
-      
-      const cleanData = {
-        zpid: returned.zpid,
-        homeDetailsLink: returned.links.homedetails._text,
-        mapThisHomeLink: returned.links.mapthishome._text,
-        comparablesLink: returned.links.comparables._text,
-        address: {
-          street: returned.address.street._text,
-          zip: returned.address.zipcode._text,
-          city: returned.address.city._text,
-          state: returned.address.state._text,
-          lat: returned.address.latitude._text,
-          long: returned.address.longitude._text
-        },
-        property: {
-          type: returned.useCode._text,
-          sqft: returned.finishedSqFt._text,
-          bathrooms: returned.bathrooms._text,
-          bedrooms: returned.bedrooms._text,
-          value: returned.zestimate._text
-        }
-      }
-      console.log(cleanData);
-      console.log(res);
-      dispatch({ type: 'SAVE_RESULTS', newResults: returned })
-    })
-    .then(() => {
-      dispatch({ type: 'STOP_LOADING' });
-      dispatch({ type: 'CLEAR_SEARCH_VALUES' });
-    });
-  };
-
-  const handleClick = e => {
+  const handleClick = async e => {
     e.preventDefault();
 
     if (checkIfNull(searchLocation) === true) {
@@ -67,7 +21,13 @@ const Form = () => {
 
     } else {
       dispatch({ type: 'START_LOADING' });
-      callAPI();
+      const zillow = await zillowAPI(searchLocation);
+      
+      if (zillow) {
+        dispatch({ type: 'SAVE_RESULTS', newResults: zillow });
+        dispatch({ type: 'STOP_LOADING' });
+        dispatch({ type: 'CLEAR_SEARCH_VALUES' });
+      }
     }
   };
 
@@ -90,7 +50,8 @@ const Form = () => {
             type="text"
             errorMessage="Please enter a city name"
           />
-          <Select />
+          <Select 
+            value={ searchLocation.state }/>
           <Input
             label="zipCode"
             name="Zip Code"

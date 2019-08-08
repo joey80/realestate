@@ -11,6 +11,7 @@
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1",
     "redux": "^4.0.1",
+    "typescript": "^3.5.3",
     "xml-js": "^1.6.11"
   },
   "scripts": {
@@ -46,9 +47,9 @@
     "enzyme-to-json": "^3.3.5",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^3.6.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jsx-a11y": "^6.1.1",
-    "eslint-plugin-react": "^7.11.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.14.3",
     "prettier": "1.14.2",
     "react-redux": "^7.0.3",
     "redux-mock-store": "^1.5.3"

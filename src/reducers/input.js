@@ -7,7 +7,7 @@ const initialState = {
     searchLocation: {
         streetAddress: null,
         city: null,
-        state: null,
+        state: "Select A State",
         zipCode: null
     }
 };
@@ -51,7 +51,7 @@ const Input = (state = initialState, action) => {
                 ...state.searchLocation,
                 streetAddress: null,
                 city: null,
-                state: null,
+                state: "Select A State",
                 zipCode: null
             }
         }
