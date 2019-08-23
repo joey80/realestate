@@ -1,51 +1,50 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import InputError from '../InputError/InputError';
 import { checkValidZip } from '../Form/Helper';
 import './Input.scss';
 
-const mapStateToProps = state => {
-    return {
-        errors: state.Input.errors,
-        searchLocation: state.Input.searchLocation
-    };
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        showError: name => dispatch({type: 'SHOW_INPUT_ERROR', errorName: name}),
-        hideError: name => dispatch({type: 'HIDE_INPUT_ERROR', errorName: name}),
-        saveValue: (name, value) => dispatch({type: 'SAVE_VALUE', stateName: name, stateValue: value})
-    }
-};
-
 const Input = props => {
 
+    const dispatch = useDispatch();
+    const errors = useSelector(state => state.Input.errors);
+
     const checkValue = target => {
-      
         // Check for blank values
-        if (target.value === '' ? props.showError(props.label) : props.hideError(props.label));
+        if (target.value === '' ? dispatch({ type: 'SHOW_INPUT_ERROR', errorName: props.label }) : dispatch({ type: 'HIDE_INPUT_ERROR', errorName: props.label }));
       
         // Validate zip code
         if (props.label === 'zipCode' && target.value !== '') {
           const valid = checkValidZip(target.value);
-          if (valid === false ? props.showError(props.label) : props.hideError(props.label));
+          if (valid === false ? dispatch({ type: 'SHOW_INPUT_ERROR', errorName: props.label }) : dispatch({ type: 'HIDE_INPUT_ERROR', errorName: props.label }));
         } 
     };
     
     return (
         <div className="form__group">
-            <label htmlFor={props.label}>{props.name}</label>
+            <label htmlFor={ props.label }>{ props.name }</label>
             <input
-                type={props.type}
-                onChange={event => {props.saveValue(props.label, event.target.value)}}
-                onBlur={event => {checkValue(event.target)}}
+                type={ props.type }
+                onChange={ e => { dispatch({ type: 'SAVE_VALUE', stateName: props.label, stateValue: e.target.value }) }}
+                onBlur={ e => { checkValue(e.target) }}
                 className="form__field"
-                name={props.label}
+                name={ props.label }
             />
-            <InputError error={props.errors[props.label]} errorMessage={props.errorMessage}></InputError>
+            <InputError
+                error={ errors[props.label] }
+                errorMessage={ props.errorMessage }
+            />
         </div>
     );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Input);
+Input.propTypes = {
+    label: PropTypes.string,
+    name: PropTypes.string,
+    type: PropTypes.string,
+    errors: PropTypes.object,
+    errorMessage: PropTypes.string
+};
+
+export default Input;

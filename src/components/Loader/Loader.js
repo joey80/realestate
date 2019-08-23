@@ -1,7 +1,11 @@
 import React from 'react';
 import './Loader.scss';
 
+<<<<<<< HEAD
 const Loader = props => {
+=======
+const Loader = () => {
+>>>>>>> 3f26f9d2062b5e032d00c2b0ea239a4e9245eeeb
 
     return (
         <div className="loader">

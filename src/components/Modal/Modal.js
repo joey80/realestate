@@ -1,49 +1,59 @@
 import React from 'react';
+<<<<<<< HEAD
 import { connect } from 'react-redux';
+=======
+import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
+>>>>>>> 3f26f9d2062b5e032d00c2b0ea239a4e9245eeeb
 import Loader from '../Loader/Loader';
 import './Modal.scss';
 
-const mapStateToProps = state => {
-    return {
-        modal: state.Modal.modal,
-        results: state.Results.searchResults
-    };
-};
-  
-const mapDispatchToProps = dispatch => {
-    return {
-        hideModal: () => dispatch({type: "HIDE_MODAL"})
-    }
-};
+const Modal = () => {
 
-const Modal = props => {
+    const dispatch = useDispatch();
+    const modal = useSelector(state => state.modalReducer.modal);
+    const results = useSelector(state => state.Results.searchResults);
     let content;
 
     const closeModal = () => {
-        props.hideModal();
+        dispatch({ type: 'HIDE_MODAL' });
     };
 
-    if (props.modal.isVisible === false) {
+    if (modal.isVisible === false) {
         return null;
-    } else {
+    }
 
+<<<<<<< HEAD
         if (props.modal.isLoading === true) {
             content = <Loader />;
         } else {
             content = <pre>${JSON.stringify(props.results, null, '  ')}</pre>;
         }
-        
-        return (
-            <div className="modal">
-                <div className="modal__footer">
-                    <button onClick={() => {closeModal(props)}}>
-                        Close
-                    </button>
-                </div>
-                {content}
-            </div>
-        );
+=======
+    if (modal.isLoading === true) {
+        content = <Loader />;
+    } else {
+        content = <pre>${JSON.stringify(results, null, '  ')}</pre>;
     }
+>>>>>>> 3f26f9d2062b5e032d00c2b0ea239a4e9245eeeb
+        
+    return (
+        <div className="modal">
+            <div className="modal__footer">
+                <button
+                    onClick={ closeModal }
+                    type="button">
+                    Close
+                </button>
+            </div>
+            {content}
+        </div>
+    );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Modal);
+Modal.propTypes = {
+    modal: PropTypes.object,
+    results: PropTypes.object
+};
+
+export default Modal;
