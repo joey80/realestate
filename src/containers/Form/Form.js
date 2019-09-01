@@ -2,10 +2,10 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { zillowAPI } from '../../utils/zillowAPI';
-import Input from '../Input/Input';
-import Modal from '../Modal/Modal';
-import Select from '../Select/Select';
-import { checkIfNull } from './Helper';
+import InputContainer from '../InputContainer/InputContainer';
+import ModalContainer from '../ModalContainer/ModalContainer';
+import SelectContainer from '../SelectContainer/SelectContainer';
+import { checkIfNull } from '../../utils/Helper';
 import './Form.scss';
 
 const Form = () => {
@@ -33,26 +33,26 @@ const Form = () => {
 
   return (
     <div className="form">
-      <Modal />
+      <ModalContainer />
       <form className="form__container">
         <div className="form__section">
           <h1><strong>Hello!</strong><br />
           Where Would You Like To Search For A Property?</h1>
-          <Input
+          <InputContainer
             label="streetAddress"
             name="Street Address"
             type="text"
             errorMessage="Please enter a street address"
           />
-          <Input
+          <InputContainer
             label="city"
             name="City"
             type="text"
             errorMessage="Please enter a city name"
           />
-          <Select 
+          <SelectContainer 
             value={ searchLocation.state }/>
-          <Input
+          <InputContainer
             label="zipCode"
             name="Zip Code"
             type="text"

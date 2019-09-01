@@ -3,14 +3,10 @@ import PropTypes from 'prop-types';
 import './InputError.scss';
 
 const InputError = props => {
-    let renderDOM;
-
-    if (props.error === false) {
-        renderDOM = <span className="inputError__message" />
-    } else {
-        renderDOM = <span className="inputError__message">{ props.errorMessage }</span>
-    }
-    return renderDOM;
+    return (props.error ?
+        <span className="inputError__message">{ props.errorMessage }</span> :
+        <span className="inputError__message" />
+    );
 };
 
 InputError.propTypes = {

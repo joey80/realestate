@@ -1,23 +1,18 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { states } from '../Form/Helper';
 import './Select.scss';
 
-const Select = props => {
-
-    const dispatch = useDispatch();
-
-    return (
-        <select
-            value={ props.value }
-            defaultValue="Select A State"
-            onChange={ e => { dispatch({ type: 'SAVE_VALUE', stateName: 'state', stateValue: e.target.value }) }}>
-            <option value="Select A State" disabled="disabled">Select A State</option>
-            { states.names.map(name => (
-                <option key={name} value={name}>{name}</option>
-            )) }
-        </select>
-    );
-};
+const Select = props => (
+    
+    <select
+        value={ props.value }
+        defaultValue={ props.defaultValue }
+        onChange={ props.onChange }>
+        { props.defaultValue ?
+            <option value={ props.defaultValue } disabled="disabled">{ props.defaultValue }</option> :
+            null
+        }
+        { props.options }
+    </select>
+);
 
 export default Select;
