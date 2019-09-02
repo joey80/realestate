@@ -8,7 +8,7 @@ import './ModalContainer.scss';
 const ModalContainer = () => {
 
     const dispatch = useDispatch();
-    const modal = useSelector(state => state.modalReducer.modal);
+    const modal = useSelector(state => state.Modal.modal);
     const results = useSelector(state => state.Results.searchResults);
     let content;
 

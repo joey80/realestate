@@ -10,6 +10,7 @@ const InputContainer = props => {
 
     const dispatch = useDispatch();
     const errors = useSelector(state => state.Input.errors);
+    const input = useSelector(state => state.Input.searchLocation);
 
     const checkValue = target => {
         // Check for blank values
@@ -32,6 +33,7 @@ const InputContainer = props => {
         <div className="input-container__group">
             <label htmlFor={ props.label }>{ props.name }</label>
             <Input
+                value={ (input[props.label] === null ? '' : input[props.label]) }
                 type={ props.type }
                 onChange={ e => { dispatch({ type: 'SAVE_VALUE', stateName: props.label, stateValue: e.target.value }) }}
                 onBlur={ e => { checkValue(e.target) }}
