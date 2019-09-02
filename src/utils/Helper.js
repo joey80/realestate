@@ -12,7 +12,7 @@ export const states = {
 
 export const checkIfNull = obj => {
   for (let value in obj) {
-    if (obj[value] === null) {
+    if (obj[value] === null || obj[value] === '') {
       return true;
     } else {
       return false;

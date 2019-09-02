@@ -5,10 +5,9 @@ const Select = props => (
     
     <select
         value={ props.value }
-        defaultValue={ props.defaultValue }
         onChange={ props.onChange }>
-        { props.defaultValue ?
-            <option value={ props.defaultValue } disabled="disabled">{ props.defaultValue }</option> :
+        { props.value === props.setDefaultValue ?
+            <option value={ props.setDefaultValue } disabled="disabled">{ props.setDefaultValue }</option> :
             null
         }
         { props.options }

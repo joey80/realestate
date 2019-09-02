@@ -11,7 +11,7 @@ const SelectContainer = props => {
     return (
         <Select
             value={ props.value }
-            defaultValue='Select A State'
+            setDefaultValue='Select A State'
             onChange={ e => { dispatch({ type: 'SAVE_VALUE', stateName: 'state', stateValue: e.target.value }) }}
             options={ states.names.map(name => (<option key={ name } value={ name }>{ name }</option>)) }
         />
