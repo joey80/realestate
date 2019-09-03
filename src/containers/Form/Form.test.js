@@ -5,14 +5,14 @@ import Adapter from 'enzyme-adapter-react-16';
 import { expect } from 'chai';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import InputContainer from './InputContainer';
+import Form from './Form';
 
 configure({ adapter: new Adapter() });
 
 const mockStore = configureMockStore([thunk]);
 let wrapper;
 
-describe('<InputContainer />', () => {
+describe('<Form />', () => {
   
   beforeEach(() => {
     const store = mockStore({
@@ -28,26 +28,30 @@ describe('<InputContainer />', () => {
             state: "Select A State",
             zipCode: null
         }
+      },
+      Modal: {
+        modal: {
+          isVisible: false,
+          isLoading: false
+        }
+      },
+      Results: {
+        searchResults: {
+          properties: null
+        }
       }
     });
 
-    const props = {
-      label: "streetAddress",
-      name: "Street Address",
-      type: "text",
-      errorMessage: "Please enter a street address"
-    };
-
     wrapper = mount(
       <Provider store={ store }>
-        <InputContainer { ...props } />
+        <Form />
       </Provider>
     );
 
   });
 
   it('renders correctly', () => {
-    expect(wrapper.find(InputContainer).length).to.equal(1);
+    expect(wrapper.find(Form).length).to.equal(1);
   });
 
 });
