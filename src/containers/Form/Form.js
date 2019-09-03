@@ -50,8 +50,11 @@ const Form = () => {
             type="text"
             errorMessage="Please enter a city name"
           />
-          <SelectContainer 
-            value={ searchLocation.state }/>
+          <SelectContainer
+            defaultOption={ 'Select A State' }
+            value={ searchLocation.state }
+            label="state"
+          />
           <InputContainer
             label="zipCode"
             name="Zip Code"
