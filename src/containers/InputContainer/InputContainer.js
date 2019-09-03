@@ -38,6 +38,7 @@ const InputContainer = props => {
                 onChange={ e => { dispatch({ type: 'SAVE_VALUE', stateName: props.label, stateValue: e.target.value }) }}
                 onBlur={ e => { checkValue(e.target) }}
                 name={ props.label }
+                error={ errors[props.label] }
             />
             <InputError
                 error={ errors[props.label] }

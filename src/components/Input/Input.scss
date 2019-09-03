@@ -1,7 +1,24 @@
+input {
+    background-color: #f7f7f7 !important;
+    border: 1px solid rgba(172, 170, 170, 0.4);
+    filter: none !important;
+    margin-top: 1.5rem;
+    padding: 1rem;
+
+    &:focus {
+        border: 1px solid #3624696e;
+    }
+}
+
 .input {
 
     &__field {
         display: block;
         width: 100%;
+
+        &--error {
+            border: 1px solid #ffa8a8 !important;
+            color: #c52424;
+        }
     }
 }
