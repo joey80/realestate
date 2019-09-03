@@ -54,6 +54,7 @@ const Form = () => {
             defaultOption={ 'Select A State' }
             value={ searchLocation.state }
             label="state"
+            errorMessage="Please select a state"
           />
           <InputContainer
             label="zipCode"
