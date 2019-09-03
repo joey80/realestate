@@ -8,7 +8,7 @@ const Input = props => (
         value={ props.value }
         type={ props.type }
         onChange={ props.onChange }
-        onBlur={ props.onChange }
+        onBlur={ props.onBlur }
         className="input__field"
         name={ props.label }
     />

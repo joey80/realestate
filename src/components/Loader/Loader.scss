@@ -1,34 +1,34 @@
 .loader {
-    margin: 4rem auto;
+  margin: 4rem auto;
 
-    &__blocks {
-        height: 200px !important;
-        margin: 0 auto;
-        position: relative;
-        transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
-        width: 200px !important;
+  &__blocks {
+    height: 200px !important;
+    margin: 0 auto;
+    position: relative;
+    transform: translate(-100px, -100px) scale(1) translate(100px, 100px);
+    width: 200px !important;
 
-        & div {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            background: #65106e;
-            animation: loading 1s linear infinite;
-        }
+    & div {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background: #65106e;
+      animation: loading 1s linear infinite;
     }
+  }
 }
 
 @keyframes loading {
-    0% {
-      background: #ffffff;
-    }
-    12.5% {
-      background: #ffffff;
-    }
-    12.625% {
-      background: #65106e;
-    }
-    100% {
-      background: #65106e;
-    }
+  0% {
+    background: #ffffff;
+  }
+  12.5% {
+    background: #ffffff;
+  }
+  12.625% {
+    background: #65106e;
+  }
+  100% {
+    background: #65106e;
+  }
 }
