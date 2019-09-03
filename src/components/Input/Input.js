@@ -9,8 +9,11 @@ const Input = props => (
         type={ props.type }
         onChange={ props.onChange }
         onBlur={ props.onBlur }
-        className="input__field"
         name={ props.label }
+        className={( props.error ?
+            'input__field input__field--error' :
+            'input__field'
+        )}
     />
 );
 

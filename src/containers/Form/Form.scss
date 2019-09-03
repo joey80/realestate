@@ -32,16 +32,6 @@
         width: 50%;
     }
 
-    &__error {
-        border: 1px solid #ffa8a8 !important;
-        color: #c52424;
-    }
-
-    // &__field {
-    //     display: block;
-    //     width: 100%;
-    // }
-
     & h1 {
         color: #444;
         font-family: 'Montserrat', Helvetica, Arial, sans-serif;
@@ -49,18 +39,6 @@
         font-weight: 400;
         letter-spacing: -0.05rem;
         line-height: 1.7;
-    }
-
-    & input {
-        background-color: #f7f7f7 !important;
-        border: 1px solid rgba(172, 170, 170, 0.4);
-        filter: none !important;
-        margin-top: 1.5rem;
-        padding: 1rem;
-
-        &:focus {
-            border: 1px solid #3624696e;
-        }
     }
 
     & label {
