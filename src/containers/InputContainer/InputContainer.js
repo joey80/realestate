@@ -36,7 +36,7 @@ const InputContainer = props => {
                 value={ (input[props.label] === null ? '' : input[props.label]) }
                 type={ props.type }
                 onChange={ e => { dispatch({ type: 'SAVE_VALUE', stateName: props.label, stateValue: e.target.value }) }}
-                onBlur={ e => { console.log('does THIS fire?'); checkValue(e.target) }}
+                onBlur={ e => { checkValue(e.target) }}
                 name={ props.label }
             />
             <InputError
