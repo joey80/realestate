@@ -1,5 +1,6 @@
 # Real Estate React App
 - Built with React, Redux, Sass
+- Uses functional components and hooks
 - Uses Zillow API for home data
 - You will need to add your own (free) [Zillow API key](https://www.zillow.com/howto/api/APIOverview.htm)
 
