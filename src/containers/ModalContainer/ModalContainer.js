@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import { MODAL } from '../../actions/constants';
 import Loader from '../../components/Loader/Loader';
 import Modal from '../../components/Modal/Modal';
 import './ModalContainer.scss';
@@ -13,7 +14,7 @@ const ModalContainer = () => {
     let content;
 
     const closeModal = () => {
-        dispatch({ type: 'HIDE_MODAL' });
+        dispatch({ type: MODAL.HIDE_MODAL });
     };
 
     if (modal.isVisible === false) {

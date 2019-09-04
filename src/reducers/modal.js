@@ -1,3 +1,5 @@
+import { MODAL } from '../actions/constants';
+
 const initialState = {
     modal: {
         isVisible: false,
@@ -7,7 +9,7 @@ const initialState = {
 
 const Modal = (state = initialState, action) => {
     
-    if (action.type === 'SHOW_MODAL') {
+    if (action.type === MODAL.SHOW_MODAL) {
         return {
             ...state,
             modal: {
@@ -18,7 +20,7 @@ const Modal = (state = initialState, action) => {
         }
     }
 
-    if (action.type === 'HIDE_MODAL') {
+    if (action.type === MODAL.HIDE_MODAL) {
         return {
             ...state,
             modal: {
@@ -29,7 +31,7 @@ const Modal = (state = initialState, action) => {
         }
     }
 
-    if (action.type === 'START_LOADING') {
+    if (action.type === MODAL.START_LOADING) {
         return {
             ...state,
             modal: {
@@ -40,7 +42,7 @@ const Modal = (state = initialState, action) => {
         }
     }
 
-    if (action.type === 'STOP_LOADING') {
+    if (action.type === MODAL.STOP_LOADING) {
         return {
             ...state,
             modal: {
