@@ -21,6 +21,10 @@ REACT_APP_ZILLOW_ZWSID=yourzillowapikey
 
 # Storybook
 - This app uses [Storybook](https://storybook.js.org/) for its UI components
+- Before running it for the first time run this
+```
+npm build-storybook
+```
 - To launch the Storybook app just use
 ```
 npm run storybook
