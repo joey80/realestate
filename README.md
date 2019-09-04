@@ -11,7 +11,6 @@
 npm install
 npm start
 ```
-
 Note - API token is not included. To add one
 - Sign up for a (free) [Zillow API key](https://www.zillow.com/howto/api/APIOverview.htm)
 - Create a .env file and add this line:

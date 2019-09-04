@@ -1,3 +1,5 @@
+import { INPUT } from '../actions/constants';
+
 const initialState = {
     errors: {
         streetAddress: false,
@@ -14,7 +16,7 @@ const initialState = {
 
 const Input = (state = initialState, action) => {
     
-    if (action.type === 'SHOW_INPUT_ERROR') {
+    if (action.type === INPUT.SHOW_INPUT_ERROR) {
         return {
             ...state,
             errors: {
@@ -24,7 +26,7 @@ const Input = (state = initialState, action) => {
         }
     }
 
-    if (action.type === 'HIDE_INPUT_ERROR') {
+    if (action.type === INPUT.HIDE_INPUT_ERROR) {
         return {
             ...state,
             errors: {
@@ -34,7 +36,7 @@ const Input = (state = initialState, action) => {
         }
     }
 
-    if (action.type === 'SAVE_VALUE') {
+    if (action.type === INPUT.SAVE_VALUE) {
         return {
             ...state,
             searchLocation: {
@@ -44,7 +46,7 @@ const Input = (state = initialState, action) => {
         }
     }
 
-    if (action.type === 'CLEAR_SEARCH_VALUES') {
+    if (action.type === INPUT.CLEAR_SEARCH_VALUES) {
         return {
             ...state,
             searchLocation: {

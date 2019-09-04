@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import { INPUT, MODAL, RESULTS } from '../../actions/constants';
 import { zillowAPI } from '../../utils/zillowAPI';
 import InputContainer from '../InputContainer/InputContainer';
 import ModalContainer from '../ModalContainer/ModalContainer';
@@ -20,13 +21,13 @@ const Form = () => {
       window.alert('All Fields Are Required');
 
     } else {
-      dispatch({ type: 'START_LOADING' });
+      dispatch({ type: MODAL.START_LOADING });
       const zillow = await zillowAPI(searchLocation);
       
       if (zillow) {
-        dispatch({ type: 'SAVE_RESULTS', newResults: zillow });
-        dispatch({ type: 'STOP_LOADING' });
-        dispatch({ type: 'CLEAR_SEARCH_VALUES' });
+        dispatch({ type: RESULTS.SAVE_RESULTS, newResults: zillow });
+        dispatch({ type: MODAL.STOP_LOADING });
+        dispatch({ type: INPUT.CLEAR_SEARCH_VALUES });
       }
     }
   };

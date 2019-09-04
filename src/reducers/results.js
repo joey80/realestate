@@ -1,3 +1,5 @@
+import { RESULTS } from '../actions/constants';
+
 const initialState = {
     searchResults: {
         properties: null
@@ -6,7 +8,7 @@ const initialState = {
 
 const Results = (state = initialState, action) => {
     
-    if (action.type === 'SAVE_RESULTS') {
+    if (action.type === RESULTS.SAVE_RESULTS) {
         return {
             ...state,
             searchResults: {
