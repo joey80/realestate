@@ -2,14 +2,14 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import './Input.scss'
 
-const Input = props => (
+const Input = ({ error, label, onBlur, onChange, type, value }) => (
   <input
-    value={props.value}
-    type={props.type}
-    onChange={props.onChange}
-    onBlur={props.onBlur}
-    name={props.label}
-    className={props.error ? 'input__field input__field--error' : 'input__field'}
+    value={value}
+    type={type}
+    onChange={onChange}
+    onBlur={onBlur}
+    name={label}
+    className={error ? 'input__field input__field--error' : 'input__field'}
   />
 )
 
