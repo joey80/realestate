@@ -1,6 +1,6 @@
 {
-  "name": "easyknock",
-  "version": "0.1.0",
+  "name": "real-estate",
+  "version": "0.0.0-development",
   "private": true,
   "dependencies": {
     "babel-eslint": "10.0.1",
