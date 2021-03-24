@@ -8,6 +8,7 @@
     ]
   },
   "dependencies": {
+    "http-proxy-middleware": "^0.19.1",
     "isomorphic-fetch": "^3.0.0",
     "node-fetch": "^2.6.0",
     "node-sass": "^4.14.0",

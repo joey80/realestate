@@ -23,6 +23,7 @@ const InputContainer = ({ errorMessage, label, name, type }) => {
     // Validate zip code
     if (label === 'zipCode' && target.value !== '') {
       const valid = checkValidZip(target.value);
+
       if (
         valid === false
           ? dispatch({ type: INPUT.SHOW_INPUT_ERROR, errorName: label })
