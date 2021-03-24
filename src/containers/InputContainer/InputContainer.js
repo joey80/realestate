@@ -7,54 +7,55 @@ import InputError from '../../components/InputError/InputError';
 import { checkValidZip } from '../../utils/Helper';
 import './InputContainer.scss';
 
-const InputContainer = props => {
+const InputContainer = ({ errorMessage, label, name, type }) => {
+  const dispatch = useDispatch();
+  const errors = useSelector(state => state.Input.errors);
+  const input = useSelector(state => state.Input.searchLocation);
 
-    const dispatch = useDispatch();
-    const errors = useSelector(state => state.Input.errors);
-    const input = useSelector(state => state.Input.searchLocation);
-
-    const checkValue = target => {
-        // Check for blank values
-        if (target.value === '' ?
-            dispatch({ type: INPUT.SHOW_INPUT_ERROR, errorName: props.label }) :
-            dispatch({ type: INPUT.HIDE_INPUT_ERROR, errorName: props.label })
-        );
-      
-        // Validate zip code
-        if (props.label === 'zipCode' && target.value !== '') {
-            const valid = checkValidZip(target.value);
-            if (valid === false ?
-                dispatch({ type: INPUT.SHOW_INPUT_ERROR, errorName: props.label }) :
-                dispatch({ type: INPUT.HIDE_INPUT_ERROR, errorName: props.label })
-            );
-        } 
-    };
-    
-    return (
-        <div className="input-container__group">
-            <label htmlFor={ props.label }>{ props.name }</label>
-            <Input
-                value={ (input[props.label] === null ? '' : input[props.label]) }
-                type={ props.type }
-                onChange={ e => { dispatch({ type: INPUT.SAVE_VALUE, stateName: props.label, stateValue: e.target.value }) }}
-                onBlur={ e => { checkValue(e.target) }}
-                name={ props.label }
-                error={ errors[props.label] }
-            />
-            <InputError
-                error={ errors[props.label] }
-                errorMessage={ props.errorMessage }
-            />
-        </div>
+  const checkValue = target => {
+    // Check for blank values
+    if (
+      target.value === ''
+        ? dispatch({ type: INPUT.SHOW_INPUT_ERROR, errorName: label })
+        : dispatch({ type: INPUT.HIDE_INPUT_ERROR, errorName: label })
     );
+
+    // Validate zip code
+    if (label === 'zipCode' && target.value !== '') {
+      const valid = checkValidZip(target.value);
+      if (
+        valid === false
+          ? dispatch({ type: INPUT.SHOW_INPUT_ERROR, errorName: label })
+          : dispatch({ type: INPUT.HIDE_INPUT_ERROR, errorName: label })
+      );
+    }
+  };
+
+  return (
+    <div className='input-container__group'>
+      <label htmlFor={label}>{name}</label>
+      <Input
+        value={input[label] === null ? '' : input[label]}
+        type={type}
+        onChange={e => {
+          dispatch({ type: INPUT.SAVE_VALUE, stateName: label, stateValue: e.target.value });
+        }}
+        onBlur={e => {
+          checkValue(e.target);
+        }}
+        name={label}
+        error={errors[label]}
+      />
+      <InputError error={errors[label]} errorMessage={errorMessage} />
+    </div>
+  );
 };
 
 InputContainer.propTypes = {
-    label: PropTypes.string,
-    name: PropTypes.string,
-    type: PropTypes.string,
-    errors: PropTypes.object,
-    errorMessage: PropTypes.string
+  label: PropTypes.string,
+  name: PropTypes.string,
+  type: PropTypes.string,
+  errorMessage: PropTypes.string,
 };
 
 export default InputContainer;

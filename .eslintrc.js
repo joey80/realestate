@@ -31,7 +31,7 @@ module.exports = {
     'import/no-extraneous-dependencies': 0,
     'jsx-a11y/anchor-is-valid': 1,
     'no-shadow': 'off',
-    'comma-dangle': ['error', 'never'],
+    'comma-dangle': 'off',
     'no-unused-vars': [
       'error',
       {
@@ -45,7 +45,6 @@ module.exports = {
         allowTernary: true,
       },
     ],
-    'comma-dangle': ['error', 'never'],
     'no-bitwise': 0,
     'global-require': 0,
     'no-confusing-arrow': 0,
@@ -58,6 +57,8 @@ module.exports = {
     'react/forbid-prop-types': 0,
     'react/no-array-index-key': 0,
     'react/no-did-update-set-state': 0,
+    'react/prop-types': 'off',
+    'react/jsx-props-no-spreading': 'off',
     'no-throw-literal': 0,
     'no-underscore-dangle': 0,
     'no-param-reassign': 0,

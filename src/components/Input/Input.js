@@ -1,21 +1,18 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import './Input.scss'
+import React from 'react';
+import PropTypes from 'prop-types';
+import './Input.scss';
 
-const Input = ({ error, label, onBlur, onChange, type, value }) => (
+const Input = ({ error, label, ...rest }) => (
   <input
-    value={value}
-    type={type}
-    onChange={onChange}
-    onBlur={onBlur}
     name={label}
     className={error ? 'input__field input__field--error' : 'input__field'}
+    {...rest}
   />
-)
+);
 
 Input.propTypes = {
-  name: PropTypes.string,
-  type: PropTypes.string
-}
+  error: PropTypes.bool,
+  label: PropTypes.string,
+};
 
-export default Input
+export default Input;
