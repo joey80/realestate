@@ -1,18 +1,17 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import './InputError.scss'
+import React from 'react';
+import PropTypes from 'prop-types';
+import './InputError.scss';
 
-const InputError = ({ error, errorMessage }) => {
-  return error ? (
-    <span className="inputError__message">{errorMessage}</span>
+const InputError = ({ error, errorMessage }) =>
+  error ? (
+    <span className='inputError__message'>{errorMessage}</span>
   ) : (
-    <span className="inputError__message" />
-  )
-}
+    <span className='inputError__message' />
+  );
 
 InputError.propTypes = {
   error: PropTypes.bool,
-  errorMessage: PropTypes.string
-}
+  errorMessage: PropTypes.string,
+};
 
-export default InputError
+export default InputError;
