@@ -45,7 +45,6 @@ module.exports = {
         allowTernary: true,
       },
     ],
-    'comma-dangle': 'off',
     'no-bitwise': 0,
     'global-require': 0,
     'no-confusing-arrow': 0,
