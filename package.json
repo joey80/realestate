@@ -17,12 +17,14 @@
     "react-redux": "^7.1.1",
     "react-scripts": "^4.0.3",
     "redux": "^4.0.1",
+    "serverless-http": "^2.7.0",
     "typescript": "^3.5.3",
     "xml-js": "^1.6.11"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "run-p build:**",
+    "build:app": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
@@ -49,11 +51,10 @@
       "enzyme-to-json/serializer"
     ]
   },
+  "resolutions": {
+    "babel-loader": "8.1.0"
+  },
   "devDependencies": {
-    "@storybook/addon-actions": "^6.1.21",
-    "@storybook/addon-links": "^6.1.21",
-    "@storybook/addons": "^6.1.21",
-    "@storybook/react": "^6.1.21",
     "chai": "^4.3.4",
     "env-cmd": "^10.1.0",
     "enzyme": "^3.11.0",
@@ -64,6 +65,7 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.23.0",
+    "npm-run-all": "^4.1.5",
     "prettier": "2.2.1",
     "redux-mock-store": "^1.5.4",
     "redux-thunk": "^2.3.0",
