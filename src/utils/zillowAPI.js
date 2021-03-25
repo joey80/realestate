@@ -4,7 +4,7 @@ export const zillowAPI = async ({ city, state, streetAddress, zipCode }) => {
   const id = process.env.REACT_APP_ZILLOW_ZWSID;
   const convert = require('xml-js');
   const results = await fetch(
-    `/api/webservice/GetDeepSearchResults.htm?zws-id=${id}&address=${streetAddress}&citystatezip=${city}+${state}+${zipCode}`
+    `/api/http://www.zillow.com/webservice/GetDeepSearchResults.htm?zws-id=${id}&address=${streetAddress}&citystatezip=${city}+${state}+${zipCode}`
   );
   const converted = await results.text();
   const cleanJSON = JSON.parse(convert.xml2json(converted, { compact: true, spaces: 2 }));
