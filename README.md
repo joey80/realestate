@@ -12,8 +12,13 @@
 # To Run:
 
 ```
-yarn install
-ntl dev
+npm install
+
+// you need to install the netlify cli first
+npm install netlify-cli -g
+
+// run the dev server
+npm run dev
 ```
 
 Note - API token is not included. To add one
