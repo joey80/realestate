@@ -6,14 +6,15 @@ import InputContainer from '../InputContainer/InputContainer';
 import ModalContainer from '../ModalContainer/ModalContainer';
 import SelectContainer from '../SelectContainer/SelectContainer';
 import { checkIfNull } from '../../utils/Helper';
+import { RootState } from '../../reducers/index';
 import './Form.scss';
 
 const Form = () => {
   const dispatch = useDispatch();
-  const searchLocation = useSelector(state => state.Input.searchLocation);
+  const searchLocation = useSelector((state: RootState) => state.Input.searchLocation);
 
-  const handleClick = async e => {
-    e.preventDefault();
+  const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
     if (checkIfNull(searchLocation) === true) {
       window.alert('All Fields Are Required');
@@ -22,6 +23,7 @@ const Form = () => {
       const zillow = await zillowAPI(searchLocation);
 
       if (zillow) {
+        // TODO: clean up this dispatch
         dispatch({ type: RESULTS.SAVE_RESULTS, newResults: zillow });
         dispatch({ type: MODAL.STOP_LOADING });
         dispatch({ type: INPUT.CLEAR_SEARCH_VALUES });
@@ -32,7 +34,7 @@ const Form = () => {
   return (
     <div className='form'>
       <ModalContainer />
-      <form className='form__container'>
+      <form className='form__container' onSubmit={handleFormSubmit}>
         <div className='form__section'>
           <h1>
             <strong>Hello!</strong>
@@ -66,13 +68,7 @@ const Form = () => {
         </div>
         <div className='form__section'>
           <div>* All fields are required</div>
-          <button
-            type='submit'
-            onClick={e => {
-              handleClick(e);
-            }}
-            className='form__button'
-          >
+          <button type='submit' className='form__button'>
             Submit
           </button>
         </div>

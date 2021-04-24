@@ -1,4 +1,4 @@
-export const checkValidZip = zip => /^[0-9]{5}(-[0-9]{4})?$/.test(zip);
+export const checkValidZip = (zip: string) => /^[0-9]{5}(-[0-9]{4})?$/.test(zip);
 
 export const states = {
   names: [
@@ -64,4 +64,5 @@ export const states = {
   ],
 };
 
-export const checkIfNull = obj => Object.values(obj).some(elm => elm === '' || elm === null);
+export const checkIfNull = (obj: object) =>
+  Object.values(obj).some(elm => elm === '' || elm === null);
