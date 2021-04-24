@@ -1,5 +1,5 @@
 module.exports = {
-  parser: 'babel-eslint',
+  parser: '@typescript-eslint/parser',
   extends: ['airbnb', 'prettier'],
   overrides: [
     Object.assign(
@@ -27,7 +27,18 @@ module.exports = {
     'class-methods-use-this': 0,
     'consistent-return': 0,
     'func-names': 0,
+    'no-use-before-define': 'off',
     'no-nested-ternary': 0,
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
+      },
+    ],
     'import/no-extraneous-dependencies': 0,
     'jsx-a11y/anchor-is-valid': 1,
     'no-shadow': 'off',
@@ -84,6 +95,7 @@ module.exports = {
   settings: {
     'import/resolver': {
       node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
         moduleDirectory: ['node_modules', 'src'],
       },
     },

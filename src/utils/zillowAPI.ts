@@ -1,6 +1,16 @@
 import fetch from 'isomorphic-fetch';
 
-export const zillowAPI = async ({ city, state, streetAddress, zipCode }) => {
+export const zillowAPI = async ({
+  city,
+  state,
+  streetAddress,
+  zipCode,
+}: {
+  city: string;
+  state: string;
+  streetAddress: string;
+  zipCode: string;
+}) => {
   const id = process.env.REACT_APP_ZILLOW_ZWSID;
   const convert = require('xml-js');
   const results = await fetch(
