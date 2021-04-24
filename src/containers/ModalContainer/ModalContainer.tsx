@@ -3,12 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { MODAL } from '../../actions/constants';
 import Loader from '../../components/Loader/Loader';
 import Modal from '../../components/Modal/Modal';
+import { RootState } from '../../reducers/index';
 import './ModalContainer.scss';
 
 const ModalContainer = () => {
   const dispatch = useDispatch();
-  const modal = useSelector(state => state.Modal.modal);
-  const results = useSelector(state => state.Results.searchResults);
+  const modal = useSelector((state: RootState) => state.Modal.modal);
+  const results = useSelector((state: RootState) => state.Results.searchResults);
   const content = <pre>${JSON.stringify(results, null, '  ')}</pre>;
 
   if (modal.isVisible === false) {
@@ -19,7 +20,7 @@ const ModalContainer = () => {
     dispatch({ type: MODAL.HIDE_MODAL });
   };
 
-  return <Modal onClick={closeModal} content={modal.isLoading ? <Loader /> : content} />;
+  return <Modal onClick={closeModal}>{modal.isLoading ? <Loader /> : content}</Modal>;
 };
 
 export default ModalContainer;
