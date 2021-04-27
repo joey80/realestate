@@ -1,4 +1,4 @@
-import { RESULTS } from '../actions/constants';
+import { RESULTS } from 'src/actions/constants';
 
 const initialState = {
   searchResults: {

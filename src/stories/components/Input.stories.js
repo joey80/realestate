@@ -1,12 +1,11 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import Input from '../../components/Input/Input';
+import Input from 'src/components/Input/Input';
 
 const inputProps = {
-    error: true
+  error: true,
 };
 
 storiesOf('Input', module)
   .add('default', () => <Input />)
-  .add('error', () => <Input { ...inputProps } />
-);
+  .add('error', () => <Input {...inputProps} />);

@@ -40,6 +40,7 @@ module.exports = {
       },
     ],
     'import/no-extraneous-dependencies': 0,
+    'import/no-unresolved': 'off',
     'jsx-a11y/anchor-is-valid': 1,
     'no-shadow': 'off',
     'comma-dangle': 'off',
@@ -96,8 +97,10 @@ module.exports = {
     'import/resolver': {
       node: {
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
-        moduleDirectory: ['node_modules', 'src'],
+        moduleDirectory: ['node_modules', 'src/'],
+        // paths: ['src'],
       },
+      // typescript: {},
     },
   },
 };
