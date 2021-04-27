@@ -1,4 +1,4 @@
-import { INPUT } from '../actions/constants';
+import { INPUT } from 'src/actions/constants';
 
 const initialState = {
   errors: {

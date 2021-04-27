@@ -1,10 +1,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { INPUT } from '../../actions/constants';
-import Select from '../../components/Select/Select';
-import InputError from '../../components/InputError/InputError';
-import { states } from '../../utils/Helper';
-import { RootState } from '../../reducers/index';
+import { INPUT } from 'src/actions/constants';
+import Select from 'src/components/Select/Select';
+import InputError from 'src/components/InputError/InputError';
+import { states } from 'src/utils/Helper';
+import { RootState } from 'src/reducers/index';
 import './SelectContainer.scss';
 
 const SelectContainer = ({

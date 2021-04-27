@@ -1,4 +1,4 @@
-import { MODAL } from '../actions/constants';
+import { MODAL } from 'src/actions/constants';
 
 const initialState = {
   modal: {

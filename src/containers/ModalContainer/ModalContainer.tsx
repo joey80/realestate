@@ -1,9 +1,9 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { MODAL } from '../../actions/constants';
-import Loader from '../../components/Loader/Loader';
-import Modal from '../../components/Modal/Modal';
-import { RootState } from '../../reducers/index';
+import { MODAL } from 'src/actions/constants';
+import Loader from 'src/components/Loader/Loader';
+import Modal from 'src/components/Modal/Modal';
+import { RootState } from 'src/reducers/index';
 import './ModalContainer.scss';
 
 const ModalContainer = () => {
