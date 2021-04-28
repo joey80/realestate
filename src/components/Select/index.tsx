@@ -1,5 +1,5 @@
 import React from 'react';
-import './Select.scss';
+import './styles.scss';
 
 interface SelectType extends React.InputHTMLAttributes<HTMLSelectElement> {
   error: boolean;

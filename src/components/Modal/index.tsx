@@ -1,5 +1,5 @@
 import React from 'react';
-import './Modal.scss';
+import './styles.scss';
 
 const Modal = ({ children, onClick }: React.PropsWithChildren<{ onClick: () => void }>) => (
   <div className='modal'>

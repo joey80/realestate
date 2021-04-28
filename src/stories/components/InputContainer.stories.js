@@ -1,10 +1,10 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import InputContainer from 'src/containers/InputContainer/InputContainer';
+import InputContainer from 'src/containers/InputContainer';
 import { ProviderWrapperWithForm } from '../util/Wrappers';
 import configureStore from 'src/store';
 import 'src/index.scss';
-import 'src/containers/Form/Form.scss';
+import 'src/containers/Form/styles.scss';
 
 const inputContainerProps = {
   label: 'streetAddress',

@@ -1,10 +1,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { MODAL } from 'src/actions/constants';
-import Loader from 'src/components/Loader/Loader';
-import Modal from 'src/components/Modal/Modal';
-import { RootState } from 'src/reducers/index';
-import './ModalContainer.scss';
+import Loader from 'src/components/Loader';
+import Modal from 'src/components/Modal';
+import { RootState } from 'src/reducers';
+import './styles.scss';
 
 const ModalContainer = () => {
   const dispatch = useDispatch();
