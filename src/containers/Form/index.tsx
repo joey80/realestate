@@ -2,12 +2,12 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { INPUT, MODAL, RESULTS } from 'src/actions/constants';
 import { zillowAPI } from 'src/utils/zillowAPI';
-import InputContainer from 'src/containers/InputContainer/InputContainer';
-import ModalContainer from 'src/containers/ModalContainer/ModalContainer';
-import SelectContainer from 'src/containers/SelectContainer/SelectContainer';
+import InputContainer from 'src/containers/InputContainer';
+import ModalContainer from 'src/containers/ModalContainer';
+import SelectContainer from 'src/containers/SelectContainer';
 import { checkIfNull } from 'src/utils/Helper';
-import { RootState } from 'src/reducers/index';
-import './Form.scss';
+import { RootState } from 'src/reducers';
+import './styles.scss';
 
 const Form = () => {
   const dispatch = useDispatch();

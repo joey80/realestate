@@ -1,5 +1,5 @@
 import React from 'react';
-import './Input.scss';
+import './styles.scss';
 
 interface InputType extends React.InputHTMLAttributes<HTMLInputElement> {
   error: boolean;

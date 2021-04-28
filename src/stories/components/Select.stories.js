@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import Select from 'src/components/Select/Select';
+import Select from 'src/components/Select';
 import { WrapperWithForm } from '../util/Wrappers';
 import { states } from 'src/utils/Helper';
 
