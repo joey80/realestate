@@ -1,11 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { INPUT } from 'src/actions/constants';
-import Input from 'src/components/Input/Input';
-import InputError from 'src/components/InputError/InputError';
+import Input from 'src/components/Input';
+import InputError from 'src/components/InputError';
 import { checkValidZip } from 'src/utils/Helper';
-import { RootState } from 'src/reducers/index';
-import './InputContainer.scss';
+import { RootState } from 'src/reducers';
+import './styles.scss';
 
 const InputContainer = ({
   errorMessage,
