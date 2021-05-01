@@ -16,7 +16,7 @@ const initialState = {
 };
 
 const Input: InputReducer = (state = initialState, action) => {
-  const { type } = action;
+  const { errorName, stateName, stateValue, type } = action;
 
   switch (type) {
     case 'SHOW_INPUT_ERROR': {
@@ -24,7 +24,7 @@ const Input: InputReducer = (state = initialState, action) => {
         ...state,
         errors: {
           ...state.errors,
-          [action.errorName]: (state.errors[action.errorName] = true),
+          [errorName]: (state.errors[errorName] = true),
         },
       };
     }
@@ -34,7 +34,7 @@ const Input: InputReducer = (state = initialState, action) => {
         ...state,
         errors: {
           ...state.errors,
-          [action.errorName]: (state.errors[action.errorName] = false),
+          [errorName]: (state.errors[errorName] = false),
         },
       };
     }
@@ -44,7 +44,7 @@ const Input: InputReducer = (state = initialState, action) => {
         ...state,
         searchLocation: {
           ...state.searchLocation,
-          [action.stateName]: (state.searchLocation[action.stateName] = action.stateValue),
+          [stateName]: (state.searchLocation[stateName] = stateValue),
         },
       };
     }
