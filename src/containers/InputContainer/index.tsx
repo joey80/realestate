@@ -5,6 +5,7 @@ import Input from 'src/components/Input';
 import InputError from 'src/components/InputError';
 import { checkValidZip } from 'src/utils/Helper';
 import { RootState } from 'src/reducers';
+import { SearchLocation } from 'src/reducers/Input/types';
 import './styles.scss';
 
 const InputContainer = ({
@@ -14,7 +15,7 @@ const InputContainer = ({
   type,
 }: {
   errorMessage: string;
-  label: string;
+  label: keyof SearchLocation;
   name: string;
   type: string;
 }) => {

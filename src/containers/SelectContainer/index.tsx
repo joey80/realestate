@@ -5,6 +5,7 @@ import Select from 'src/components/Select';
 import InputError from 'src/components/InputError';
 import { states } from 'src/utils/Helper';
 import { RootState } from 'src/reducers';
+import { SearchLocation } from 'src/reducers/Input/types';
 import './styles.scss';
 
 const SelectContainer = ({
@@ -15,7 +16,7 @@ const SelectContainer = ({
 }: {
   defaultOption: string;
   errorMessage: string;
-  label: string;
+  label: keyof SearchLocation;
   value: string;
 }) => {
   const dispatch = useDispatch();

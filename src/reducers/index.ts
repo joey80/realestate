@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import Input from './input';
+import Input from './Input';
 import Modal from './modal';
 import Results from './results';
 
