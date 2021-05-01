@@ -1,4 +1,4 @@
-import { Action, InitialState } from './types';
+import { InputReducer } from './types';
 
 const initialState = {
   errors: {
@@ -15,7 +15,7 @@ const initialState = {
   },
 };
 
-const Input = (state: InitialState = initialState, action: Action) => {
+const Input: InputReducer = (state = initialState, action) => {
   const { type } = action;
 
   switch (type) {

@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import Input from './Input';
-import Modal from './modal';
+import Modal from './Modal';
 import Results from './results';
 
 const rootReducer = combineReducers({

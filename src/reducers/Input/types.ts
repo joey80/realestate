@@ -1,12 +1,5 @@
 import { INPUT } from 'src/actions/constants';
 
-interface Action {
-  errorName: keyof SearchLocation;
-  stateName: keyof SearchLocation;
-  stateValue: string;
-  type: keyof typeof INPUT;
-}
-
 interface Errors {
   city: boolean;
   state: boolean;
@@ -21,9 +14,21 @@ interface SearchLocation {
   zipCode: string;
 }
 
-interface InitialState {
+interface InputAction {
+  errorName: keyof SearchLocation;
+  stateName: keyof SearchLocation;
+  stateValue: string;
+  type: keyof typeof INPUT;
+}
+
+interface InputInitialState {
   errors: Errors;
   searchLocation: SearchLocation;
 }
 
-export type { Action, InitialState, SearchLocation };
+type InputReducer = (
+  state: InputInitialState | undefined,
+  action: InputAction
+) => InputInitialState;
+
+export type { InputAction, InputInitialState, InputReducer, SearchLocation };
