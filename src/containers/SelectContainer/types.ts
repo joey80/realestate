@@ -1,10 +1,10 @@
 import { SearchLocation } from 'src/reducers/Input/types';
 
-interface InputContainerType {
+interface SelectContainerType {
+  defaultValue: string;
   errorMessage: string;
   label: keyof SearchLocation;
-  maxLength?: number;
-  name: string;
+  value: string;
 }
 
-export type { InputContainerType };
+export type { SelectContainerType };
