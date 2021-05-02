@@ -1,11 +1,11 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { batch, useDispatch, useSelector } from 'react-redux';
 import { INPUT, MODAL, RESULTS } from 'src/actions/constants';
 import { zillowAPI } from 'src/utils/zillowAPI';
 import InputContainer from 'src/containers/InputContainer';
 import ModalContainer from 'src/containers/ModalContainer';
 import SelectContainer from 'src/containers/SelectContainer';
-import { checkIfNull } from 'src/utils/Helper';
+import { hasValidData } from 'src/utils/Helper';
 import { RootState } from 'src/reducers';
 import './styles.scss';
 
@@ -16,18 +16,23 @@ const Form = () => {
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (checkIfNull(searchLocation) === true) {
-      window.alert('All Fields Are Required');
-    } else {
+    if (hasValidData(searchLocation)) {
       dispatch({ type: MODAL.START_LOADING });
-      const zillowResults = await zillowAPI(searchLocation);
+      handleZillow();
+    } else {
+      window.alert('All Fields Are Required');
+    }
+  };
 
-      if (zillowResults) {
-        // TODO: clean up this dispatch
+  const handleZillow = async () => {
+    const zillowResults = await zillowAPI(searchLocation);
+
+    if (zillowResults) {
+      batch(() => {
         dispatch({ type: RESULTS.SAVE_RESULTS, newResults: zillowResults });
         dispatch({ type: MODAL.STOP_LOADING });
         dispatch({ type: INPUT.CLEAR_SEARCH_VALUES });
-      }
+      });
     }
   };
 
@@ -42,22 +47,22 @@ const Form = () => {
             Where Would You Like To Search For A Property?
           </h1>
           <InputContainer
+            errorMessage='Please enter a street address'
             label='streetAddress'
             name='Street Address'
-            errorMessage='Please enter a street address'
           />
           <InputContainer label='city' name='City' errorMessage='Please enter a city name' />
           <SelectContainer
             defaultValue='Select A State'
-            value={searchLocation.state}
-            label='state'
             errorMessage='Please select a state'
+            label='state'
+            value={searchLocation.state}
           />
           <InputContainer
+            errorMessage='Please enter a valid 5 digit zip code'
             label='zipCode'
             maxLength={5}
             name='Zip Code'
-            errorMessage='Please enter a valid 5 digit zip code'
           />
         </div>
         <div className='form__section'>
