@@ -44,15 +44,9 @@ const Form = () => {
           <InputContainer
             label='streetAddress'
             name='Street Address'
-            type='text'
             errorMessage='Please enter a street address'
           />
-          <InputContainer
-            label='city'
-            name='City'
-            type='text'
-            errorMessage='Please enter a city name'
-          />
+          <InputContainer label='city' name='City' errorMessage='Please enter a city name' />
           <SelectContainer
             defaultOption='Select A State'
             value={searchLocation.state}
@@ -62,7 +56,6 @@ const Form = () => {
           <InputContainer
             label='zipCode'
             name='Zip Code'
-            type='text'
             errorMessage='Please enter a valid 5 digit zip code'
           />
         </div>
