@@ -1,15 +1,16 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { mount } from 'enzyme';
+import { mount, ReactWrapper } from 'enzyme';
 import { expect } from 'chai';
+import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import SelectContainer from './index';
+import InputContainer from './index';
+import { InputContainerType } from './types';
 
 const mockStore = configureMockStore([thunk]);
-let wrapper;
+let wrapper: ReactWrapper;
 
-describe('<SelectContainer />', () => {
+describe('InputContainer', () => {
   beforeEach(() => {
     const store = mockStore({
       Input: {
@@ -27,21 +28,20 @@ describe('<SelectContainer />', () => {
       },
     });
 
-    const props = {
-      defaultOption: 'Select A State',
-      value: 'Select A State',
-      label: 'state',
-      errorMessage: 'Please choose a state',
+    const props: InputContainerType = {
+      errorMessage: 'Please enter a street address',
+      label: 'streetAddress',
+      name: 'Street Address',
     };
 
     wrapper = mount(
       <Provider store={store}>
-        <SelectContainer {...props} />
+        <InputContainer {...props} />
       </Provider>
     );
   });
 
   it('renders correctly', () => {
-    expect(wrapper.find(SelectContainer).length).to.equal(1);
+    expect(wrapper.find(InputContainer).length).to.equal(1);
   });
 });

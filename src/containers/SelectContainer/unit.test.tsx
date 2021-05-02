@@ -1,15 +1,16 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { mount } from 'enzyme';
+import { mount, ReactWrapper } from 'enzyme';
 import { expect } from 'chai';
+import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import Form from './index';
+import SelectContainer from './index';
+import { SelectContainerType } from './types';
 
 const mockStore = configureMockStore([thunk]);
-let wrapper;
+let wrapper: ReactWrapper;
 
-describe('<Form />', () => {
+describe('SelectContainer', () => {
   beforeEach(() => {
     const store = mockStore({
       Input: {
@@ -25,32 +26,23 @@ describe('<Form />', () => {
           zipCode: null,
         },
       },
-      Modal: {
-        modal: {
-          isVisible: false,
-          isLoading: false,
-        },
-      },
-      Results: {
-        searchResults: {
-          properties: null,
-        },
-      },
     });
+
+    const props: SelectContainerType = {
+      defaultValue: 'Select A State',
+      errorMessage: 'Please choose a state',
+      label: 'state',
+      value: 'Select A State',
+    };
 
     wrapper = mount(
       <Provider store={store}>
-        <Form />
+        <SelectContainer {...props} />
       </Provider>
     );
   });
 
   it('renders correctly', () => {
-    expect(wrapper.find(Form).length).to.equal(1);
-  });
-
-  it('shows the right heading text', () => {
-    const data = 'Hello!Where Would You Like To Search For A Property?';
-    expect(wrapper.find('h1').text().trim()).to.equal(data);
+    expect(wrapper.find(SelectContainer).length).to.equal(1);
   });
 });

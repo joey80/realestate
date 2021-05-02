@@ -1,9 +1,9 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import Modal from './index';
 
-describe('<Modal />', () => {
+describe('Modal', () => {
   it('renders correctly', () => {
-    shallow(<Modal />);
+    mount(<Modal />);
   });
 });

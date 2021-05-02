@@ -1,9 +1,9 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import Input from './index';
 
-describe('<Input />', () => {
+describe('Input', () => {
   it('renders correctly', () => {
-    shallow(<Input />);
+    mount(<Input />);
   });
 });
