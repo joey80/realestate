@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { INPUT } from 'src/actions/constants';
 import Input from 'src/components/Input';
 import InputError from 'src/components/InputError';
-import { checkValidZip } from 'src/utils/Helper';
+import { hasValidZipcode } from 'src/utils/Helper';
 import { RootState } from 'src/reducers';
 import { InputContainerType } from './types';
 import './styles.scss';
@@ -24,12 +24,10 @@ const InputContainer = ({ errorMessage, label, name, ...rest }: InputContainerTy
 
   // Validate zip code
   const handleValidZip = (str: string) => {
-    const valid = checkValidZip(str);
-
-    if (!valid) {
-      dispatch({ type: INPUT.SHOW_INPUT_ERROR, errorName: label });
-    } else {
+    if (hasValidZipcode(str)) {
       dispatch({ type: INPUT.HIDE_INPUT_ERROR, errorName: label });
+    } else {
+      dispatch({ type: INPUT.SHOW_INPUT_ERROR, errorName: label });
     }
   };
 
