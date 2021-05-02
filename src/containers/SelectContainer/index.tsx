@@ -5,48 +5,41 @@ import Select from 'src/components/Select';
 import InputError from 'src/components/InputError';
 import { states } from 'src/utils/Helper';
 import { RootState } from 'src/reducers';
+import { SelectContainerType } from './types';
 import './styles.scss';
 
-const SelectContainer = ({
-  defaultOption,
-  errorMessage,
-  label,
-  value,
-}: {
-  defaultOption: string;
-  errorMessage: string;
-  label: string;
-  value: string;
-}) => {
+const SelectContainer = ({ defaultValue, errorMessage, label, value }: SelectContainerType) => {
   const dispatch = useDispatch();
   const errors = useSelector((state: RootState) => state.Input.errors);
+  const { names: stateNames } = states;
 
-  const handleBlur = ({ target }: React.FocusEvent<HTMLSelectElement>) => {
-    // TODO: clean this up
+  const handleBlur = ({ target: { value } }: React.FocusEvent<HTMLSelectElement>) => {
     // Check for blank values
-    target.value === defaultOption
-      ? dispatch({ type: INPUT.SHOW_INPUT_ERROR, errorName: label })
-      : dispatch({ type: INPUT.HIDE_INPUT_ERROR, errorName: label });
+    if (value === defaultValue) {
+      dispatch({ type: INPUT.SHOW_INPUT_ERROR, errorName: label });
+    } else {
+      dispatch({ type: INPUT.HIDE_INPUT_ERROR, errorName: label });
+    }
   };
 
-  const handleChange = ({ target }: React.ChangeEvent<HTMLSelectElement>) => {
-    dispatch({ type: INPUT.SAVE_VALUE, stateName: 'state', stateValue: target.value });
+  const handleChange = ({ target: { value } }: React.ChangeEvent<HTMLSelectElement>) => {
+    dispatch({ type: INPUT.SAVE_VALUE, stateName: 'state', stateValue: value });
   };
 
   return (
     <>
       <Select
-        value={value}
-        onBlur={handleBlur}
         error={errors[label]}
+        onBlur={handleBlur}
         onChange={handleChange}
-        options={states.names.map(name => (
+        options={stateNames.map(name => (
           <option key={name} value={name}>
             {name}
           </option>
         ))}
+        {...{ defaultValue, value }}
       />
-      <InputError error={errors[label]} errorMessage={errorMessage} />
+      <InputError error={errors[label]} {...{ errorMessage }} />
     </>
   );
 };

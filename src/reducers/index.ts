@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
-import Input from './input';
-import Modal from './modal';
-import Results from './results';
+import Input from './Input';
+import Modal from './Modal';
+import Results from './Results';
 
 const rootReducer = combineReducers({
   Input,
