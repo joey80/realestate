@@ -1,4 +1,8 @@
-export const checkValidZip = (zip: string) => /^[0-9]{5}(-[0-9]{4})?$/.test(zip);
+// checks for any falsey values in an object
+export const hasValidData = (obj: object) =>
+  Object.values(obj).some(elm => elm !== '' || elm !== null);
+
+export const hasValidZipcode = (zip: string) => /^[0-9]{5}(-[0-9]{4})?$/.test(zip);
 
 export const states = {
   names: [
@@ -63,6 +67,3 @@ export const states = {
     'WY',
   ],
 };
-
-export const checkIfNull = (obj: object) =>
-  Object.values(obj).some(elm => elm === '' || elm === null);

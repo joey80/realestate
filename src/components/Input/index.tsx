@@ -6,7 +6,7 @@ interface InputType extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 const Input = ({ error, ...rest }: InputType) => (
-  <input {...rest} className={error ? 'input__field input__field--error' : 'input__field'} />
+  <input {...rest} className={`input__field ${error ? 'input__field--error' : ''}`} type='text' />
 );
 
 export default Input;
