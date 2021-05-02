@@ -1,9 +1,9 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import Loader from './index';
 
-describe('<Loader />', () => {
+describe('Loader', () => {
   it('renders correctly', () => {
-    shallow(<Loader />);
+    mount(<Loader />);
   });
 });

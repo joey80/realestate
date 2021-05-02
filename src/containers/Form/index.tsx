@@ -41,6 +41,7 @@ const Form = () => {
       <ModalContainer />
       <form className='form__container' onSubmit={handleFormSubmit}>
         <div className='form__section'>
+          {/* TODO: clean this up */}
           <h1>
             <strong>Hello!</strong>
             <br />

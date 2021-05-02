@@ -1,15 +1,15 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { mount } from 'enzyme';
+import { mount, ReactWrapper } from 'enzyme';
 import { expect } from 'chai';
+import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import ModalContainer from './index';
 
 const mockStore = configureMockStore([thunk]);
-let wrapper;
+let wrapper: ReactWrapper;
 
-describe('<ModalContainer />', () => {
+describe('ModalContainer', () => {
   beforeEach(() => {
     const store = mockStore({
       Modal: {

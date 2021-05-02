@@ -2,7 +2,7 @@ import React from 'react';
 import './styles.scss';
 
 interface InputType extends React.InputHTMLAttributes<HTMLInputElement> {
-  error: boolean;
+  error?: boolean;
 }
 
 const Input = ({ error, ...rest }: InputType) => (
