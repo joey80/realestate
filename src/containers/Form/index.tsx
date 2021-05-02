@@ -20,11 +20,11 @@ const Form = () => {
       window.alert('All Fields Are Required');
     } else {
       dispatch({ type: MODAL.START_LOADING });
-      const zillow = await zillowAPI(searchLocation);
+      const zillowResults = await zillowAPI(searchLocation);
 
-      if (zillow) {
+      if (zillowResults) {
         // TODO: clean up this dispatch
-        dispatch({ type: RESULTS.SAVE_RESULTS, newResults: zillow });
+        dispatch({ type: RESULTS.SAVE_RESULTS, newResults: zillowResults });
         dispatch({ type: MODAL.STOP_LOADING });
         dispatch({ type: INPUT.CLEAR_SEARCH_VALUES });
       }
@@ -48,13 +48,14 @@ const Form = () => {
           />
           <InputContainer label='city' name='City' errorMessage='Please enter a city name' />
           <SelectContainer
-            defaultOption='Select A State'
+            defaultValue='Select A State'
             value={searchLocation.state}
             label='state'
             errorMessage='Please select a state'
           />
           <InputContainer
             label='zipCode'
+            maxLength={5}
             name='Zip Code'
             errorMessage='Please enter a valid 5 digit zip code'
           />

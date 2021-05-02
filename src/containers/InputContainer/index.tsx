@@ -8,7 +8,7 @@ import { RootState } from 'src/reducers';
 import { InputContainerType } from './types';
 import './styles.scss';
 
-const InputContainer = ({ errorMessage, label, name }: InputContainerType) => {
+const InputContainer = ({ errorMessage, label, name, ...rest }: InputContainerType) => {
   const dispatch = useDispatch();
   const errors = useSelector((state: RootState) => state.Input.errors);
   const input = useSelector((state: RootState) => state.Input.searchLocation);
@@ -54,6 +54,7 @@ const InputContainer = ({ errorMessage, label, name }: InputContainerType) => {
         onBlur={handleBlur}
         onChange={handleChange}
         value={input[label] === null ? '' : input[label]}
+        {...rest}
       />
       <InputError error={errors[label]} {...{ errorMessage }} />
     </div>

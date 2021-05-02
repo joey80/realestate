@@ -6,10 +6,10 @@ interface SelectType extends React.InputHTMLAttributes<HTMLSelectElement> {
   options: any;
 }
 
-const Select = ({ error, options, ...rest }: SelectType) => (
+const Select = ({ defaultValue, error, options, ...rest }: SelectType) => (
   <select className={error ? 'select select--error' : 'select'} {...rest}>
-    <option disabled value='Select A State'>
-      Select A State
+    <option disabled value={defaultValue}>
+      {defaultValue}
     </option>
     {options}
   </select>
