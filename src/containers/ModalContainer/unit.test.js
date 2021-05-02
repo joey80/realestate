@@ -1,44 +1,38 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { mount, configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { mount } from 'enzyme';
 import { expect } from 'chai';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import ModalContainer from './ModalContainer';
-
-configure({ adapter: new Adapter() });
+import ModalContainer from './index';
 
 const mockStore = configureMockStore([thunk]);
 let wrapper;
 
 describe('<ModalContainer />', () => {
-  
   beforeEach(() => {
     const store = mockStore({
       Modal: {
         modal: {
           isVisible: false,
-          isLoading: false
-        }
+          isLoading: false,
+        },
       },
       Results: {
         searchResults: {
-          properties: null
-        }
-      }
+          properties: null,
+        },
+      },
     });
 
     wrapper = mount(
-      <Provider store={ store }>
+      <Provider store={store}>
         <ModalContainer />
       </Provider>
     );
-
   });
 
   it('renders correctly', () => {
     expect(wrapper.find(ModalContainer).length).to.equal(1);
   });
-
 });
