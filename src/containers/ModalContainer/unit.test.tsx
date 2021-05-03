@@ -1,32 +1,24 @@
-import React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
 import { expect } from 'chai';
 import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import ModalContainer from './index';
-
-const mockStore = configureMockStore([thunk]);
-let wrapper: ReactWrapper;
+import { initialState as modalInitialState } from 'src/reducers/Modal';
+import { initialState as resultsInitialState } from 'src/reducers/Results';
 
 describe('ModalContainer', () => {
-  beforeEach(() => {
-    const store = mockStore({
-      Modal: {
-        modal: {
-          isVisible: false,
-          isLoading: false,
-        },
-      },
-      Results: {
-        searchResults: {
-          properties: null,
-        },
-      },
-    });
+  let wrapper: ReactWrapper;
+  const mockStore = configureMockStore([thunk]);
 
+  const defaultStore = mockStore({
+    Modal: modalInitialState,
+    Results: resultsInitialState,
+  });
+
+  beforeEach(() => {
     wrapper = mount(
-      <Provider store={store}>
+      <Provider store={defaultStore}>
         <ModalContainer />
       </Provider>
     );
@@ -35,4 +27,9 @@ describe('ModalContainer', () => {
   it('renders correctly', () => {
     expect(wrapper.find(ModalContainer).length).to.equal(1);
   });
+
+  // modal is null by default
+  // shows loader if loading state
+  // hides modal on click
+  // shows results content when loaded
 });

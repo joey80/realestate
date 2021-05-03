@@ -1,45 +1,26 @@
-import React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
 import { expect } from 'chai';
 import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import Form from './index';
-
-const mockStore = configureMockStore([thunk]);
-let wrapper: ReactWrapper;
+import { initialState as inputInitialState } from 'src/reducers/Input';
+import { initialState as modalInitialState } from 'src/reducers/Modal';
+import { initialState as resultsInitialState } from 'src/reducers/Results';
 
 describe('Form', () => {
-  beforeEach(() => {
-    const store = mockStore({
-      Input: {
-        errors: {
-          streetAddress: false,
-          city: false,
-          zipCode: false,
-        },
-        searchLocation: {
-          streetAddress: null,
-          city: null,
-          state: 'Select A State',
-          zipCode: null,
-        },
-      },
-      Modal: {
-        modal: {
-          isVisible: false,
-          isLoading: false,
-        },
-      },
-      Results: {
-        searchResults: {
-          properties: null,
-        },
-      },
-    });
+  let wrapper: ReactWrapper;
+  const mockStore = configureMockStore([thunk]);
 
+  const defaultStore = mockStore({
+    Input: inputInitialState,
+    Modal: modalInitialState,
+    Results: resultsInitialState,
+  });
+
+  beforeEach(() => {
     wrapper = mount(
-      <Provider store={store}>
+      <Provider store={defaultStore}>
         <Form />
       </Provider>
     );
@@ -53,4 +34,6 @@ describe('Form', () => {
     const data = 'Hello!Where Would You Like To Search For A Property?';
     expect(wrapper.find('h1').text().trim()).to.equal(data);
   });
+
+  // form submits successfully if data is correct
 });
