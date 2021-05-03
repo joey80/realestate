@@ -26,4 +26,4 @@ const Results: ResultsReducer = (state = initialState, action) => {
   }
 };
 
-export default Results;
+export { initialState, Results as default };
