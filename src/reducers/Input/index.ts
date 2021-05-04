@@ -68,4 +68,4 @@ const Input: InputReducer = (state = initialState, action) => {
   }
 };
 
-export default Input;
+export { initialState, Input as default };

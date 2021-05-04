@@ -47,7 +47,7 @@ npm run storybook
 
 # Testing
 
-- This app uses Enzyme, Chai, and Jest
+- This app uses Enzyme, and Jest
 - To run the unit tests enter:
 
 ```
