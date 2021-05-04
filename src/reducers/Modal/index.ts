@@ -61,4 +61,4 @@ const Modal: ModalReducer = (state = initialState, action) => {
   }
 };
 
-export default Modal;
+export { initialState, Modal as default };
