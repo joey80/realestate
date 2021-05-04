@@ -1,5 +1,6 @@
+import React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
-import { expect } from 'chai';
+import { act } from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
@@ -30,11 +31,28 @@ describe('InputContainer', () => {
   });
 
   it('renders correctly', () => {
-    expect(wrapper.find(InputContainer).length).to.equal(1);
+    expect(wrapper.find(InputContainer).exists()).toBeTruthy();
   });
 
-  // validates zipcode (5 chars plus other things)
-  // checks for empty values
+  // TODO: use react-testing-library for this one
+
+  // it('validates a zipcode', () => {
+  //   wrapper.setProps({
+  //     children: React.cloneElement((wrapper.props() as any).children, {
+  //       errorMessage: 'Please enter a valid zipcode',
+  //       label: 'zipCode',
+  //       name: 'Zip Code',
+  //     }),
+  //   });
+
+  //   act(() => {
+  //     wrapper
+  //       .find('input')
+  //       .first()
+  //       .simulate('change', { target: { value: '28031' } });
+  //   });
+  // });
+
   // shows an error message if error
   // saves value to store
 });
