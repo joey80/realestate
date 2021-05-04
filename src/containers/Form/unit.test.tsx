@@ -1,5 +1,4 @@
 import { mount, ReactWrapper } from 'enzyme';
-import { expect } from 'chai';
 import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
@@ -27,13 +26,11 @@ describe('Form', () => {
   });
 
   it('renders correctly', () => {
-    expect(wrapper.find(Form).length).to.equal(1);
+    expect(wrapper.find(Form).exists()).toBeTruthy();
   });
 
   it('shows the right heading text', () => {
-    const data = 'Hello!Where Would You Like To Search For A Property?';
-    expect(wrapper.find('h1').text().trim()).to.equal(data);
+    const data = 'Where Would You Like To Search For A Property?';
+    expect(wrapper.find('h1').text()).toBe(data);
   });
-
-  // form submits successfully if data is correct
 });

@@ -41,12 +41,7 @@ const Form = () => {
       <ModalContainer />
       <form className='form__container' onSubmit={handleFormSubmit}>
         <div className='form__section'>
-          {/* TODO: clean this up */}
-          <h1>
-            <strong>Hello!</strong>
-            <br />
-            Where Would You Like To Search For A Property?
-          </h1>
+          <h1>Where Would You Like To Search For A Property?</h1>
           <InputContainer
             errorMessage='Please enter a street address'
             label='streetAddress'
