@@ -1,4 +1,5 @@
-import fetch from 'isomorphic-fetch';
+import axios from 'axios';
+import { Handler } from '@netlify/functions';
 
 export const zillowAPI = async ({
   city,
@@ -13,10 +14,10 @@ export const zillowAPI = async ({
 }) => {
   const id = process.env.REACT_APP_ZILLOW_ZWSID;
   const convert = require('xml-js');
-  const results = await fetch(
-    `/api/http://www.zillow.com/webservice/GetDeepSearchResults.htm?zws-id=${id}&address=${streetAddress}&citystatezip=${city}+${state}+${zipCode}`
+  const results = await axios(
+    `http://www.zillow.com/webservice/GetDeepSearchResults.htm?zws-id=${id}&address=${streetAddress}&citystatezip=${city}+${state}+${zipCode}`
   );
-  const converted = await results.text();
+  const converted = await results.data;
   const cleanJSON = JSON.parse(convert.xml2json(converted, { compact: true, spaces: 2 }));
   const dirtyData = cleanJSON['SearchResults:searchresults'].response.results.result;
   const cleanData = {
@@ -42,3 +43,15 @@ export const zillowAPI = async ({
   };
   return cleanData;
 };
+
+const handler: Handler = async event => {
+  const body = JSON.parse(event.body);
+  const zillow = await zillowAPI(body);
+
+  return {
+    statusCode: 200,
+    body: JSON.stringify({ message: 'Hello World', body: zillow }),
+  };
+};
+
+export { handler };
