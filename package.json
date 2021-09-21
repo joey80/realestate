@@ -11,11 +11,7 @@
     "dev": "ntl dev",
     "start": "react-scripts start",
     "start:lambda": "netlify-lambda serve src/lambda",
-<<<<<<< HEAD
     "build": "run-p build:**",
-=======
-    "build": "run-p tsc build:**",
->>>>>>> a353eda33d59e66dcf1e5290e664f2f44dd7752b
     "build:app": "react-scripts build",
     "build:lambda": "netlify-lambda build src/lambda",
     "test": "react-scripts test",
