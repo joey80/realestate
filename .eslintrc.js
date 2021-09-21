@@ -1,16 +1,9 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
   extends: ['airbnb', 'prettier'],
-  overrides: [
-    Object.assign(
-      {
-        files: ['**/*.test.js'],
-        env: { jest: true },
-        plugins: ['jest'],
-      },
-      require('eslint-plugin-jest').configs.recommended
-    ),
-  ],
+  env: {
+    jest: true,
+  },
   rules: {
     semi: 0,
     'import/prefer-default-export': 0,

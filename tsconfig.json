@@ -17,5 +17,6 @@
     "isolatedModules": true,
     "noEmit": true
   },
-  "include": ["**/*.ts", "**/*.tsx"]
+  "exclude": ["src/setupProxy.js", "src/lambda"],
+  "include": ["src"]
 }

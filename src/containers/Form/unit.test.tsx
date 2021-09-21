@@ -1,11 +1,12 @@
+import React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
 import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import Form from './index';
 import { initialState as inputInitialState } from 'src/reducers/Input';
 import { initialState as modalInitialState } from 'src/reducers/Modal';
 import { initialState as resultsInitialState } from 'src/reducers/Results';
+import Form from './index';
 
 describe('Form', () => {
   let wrapper: ReactWrapper;

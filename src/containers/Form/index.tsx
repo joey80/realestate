@@ -1,7 +1,7 @@
 import React from 'react';
 import { batch, useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
 import { INPUT, MODAL, RESULTS } from 'src/actions/constants';
-import { zillowAPI } from 'src/utils/zillowAPI';
 import InputContainer from 'src/containers/InputContainer';
 import ModalContainer from 'src/containers/ModalContainer';
 import SelectContainer from 'src/containers/SelectContainer';
@@ -13,7 +13,7 @@ const Form = () => {
   const dispatch = useDispatch();
   const searchLocation = useSelector((state: RootState) => state.Input.searchLocation);
 
-  const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
     if (hasValidData(searchLocation)) {
@@ -25,11 +25,14 @@ const Form = () => {
   };
 
   const handleZillow = async () => {
-    const zillowResults = await zillowAPI(searchLocation);
+    const zillowResults = await axios('/.netlify/functions/zillow', {
+      method: 'POST',
+      data: searchLocation,
+    });
 
     if (zillowResults) {
       batch(() => {
-        dispatch({ type: RESULTS.SAVE_RESULTS, newResults: zillowResults });
+        dispatch({ type: RESULTS.SAVE_RESULTS, newResults: zillowResults.data.body });
         dispatch({ type: MODAL.STOP_LOADING });
         dispatch({ type: INPUT.CLEAR_SEARCH_VALUES });
       });

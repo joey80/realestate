@@ -1,10 +1,11 @@
+import React from 'react';
 import { mount, ReactWrapper } from 'enzyme';
 import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
+import { initialState } from 'src/reducers/Input';
 import SelectContainer from './index';
 import { SelectContainerType } from './types';
-import { initialState } from 'src/reducers/Input';
 
 describe('SelectContainer', () => {
   let wrapper: ReactWrapper;
